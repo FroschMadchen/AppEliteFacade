@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Elite Facade</string>
+    <string name="sign_in">Вход</string>
+    <string name="sign_in_client">Введите данные, если вы являетесь заказчиком</string>
+    <string name="sign_in_employee">Введите данные, если вы являетесь сотрудником</string>
+    <string name="client">Заказчик</string>
+    <string name="employee">Сотрудник</string>
+    <string name="farther">Продолжить</string>
+    <string name="remember_me">Запомнить меня</string>
+    <string name="forgot_password">Забыли данные входа?</string>
+    <string name="id_order">ID вышего заказа</string>
+    <string name="name">Ваше Имя и Фамилия</string>
+    <string name="password">Ваш пароль</string>
+    <string name="hello_name_client">Здравствуйте, Ростислав</string>
+    <string name="order_info_client">Информация о Вашем заказе</string>
+    <string name="info_company">Производство архитектруного фасадного декора</string>
+    <string name="info_name">ООО «Кристалл»</string>
+</resources>
