@@ -1,4 +1,4 @@
-package com.example.elitefacade.screen.views.SingIn.pagertab
+package com.example.elitefacade.screen.views.SingIn
 
 
 import androidx.compose.foundation.Image
@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -22,12 +21,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.elitefacade.R
-import com.example.elitefacade.screen.views.SingIn.ViewSignInEmployee
-import com.example.elitefacade.screen.views.SingIn.ViewSingInClient
+import com.example.elitefacade.screen.views.SingIn.pagertab.pagerTabIndicatorOffset
 import com.example.elitefacade.ui.theme.backgroundBtn323
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -37,7 +34,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun TabLayout(navController: NavController) {
+fun ScreenTabLayout(navController: NavController) {
     val tabList =
         listOf(stringResource(id = R.string.client), stringResource(id = R.string.employee))
     val pagerState = rememberPagerState()
@@ -59,19 +56,9 @@ fun TabLayout(navController: NavController) {
             Text(
                 text = stringResource(id = R.string.info_name),
                 style = (MaterialTheme.typography.titleLarge),
-                modifier = Modifier.padding(start=16.dp,end=16.dp,top=10.dp),
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp),
                 color = MaterialTheme.colorScheme.onSecondary
             )
-         /*   Text(
-                text = stringResource(id = R.string.info_company),
-                style = (MaterialTheme.typography.titleSmall),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp)
-                    .align(Alignment.CenterHorizontally),
-                color = MaterialTheme.colorScheme.onPrimary,
-                textAlign = TextAlign.Center
-            )*/
 
             TabRow(
                 selectedTabIndex = tabIndex,
@@ -82,7 +69,7 @@ fun TabLayout(navController: NavController) {
                     )
 
                 },
-                contentColor = backgroundBtn323,//MaterialTheme.colorScheme.onPrimary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,//MaterialTheme.colorScheme.onPrimary,
                 containerColor = Color.Transparent
             ) {
                 tabList.forEachIndexed { index, s ->
@@ -100,18 +87,15 @@ fun TabLayout(navController: NavController) {
             }
             HorizontalPager(
                 count = tabList.size,
-                state = pagerState,
-                // modifier = Modifier.weight(1.0f)
+                state = pagerState
             ) { index ->
                 val list = when (index) {
                     0 -> ViewSingInClient(navController)
                     1 -> ViewSignInEmployee()
                     else -> ViewSingInClient(navController)
                 }
-                // MainList(list, currentDays)
             }
         }
     }
-
 }
 

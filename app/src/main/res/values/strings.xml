@@ -11,7 +11,7 @@
     <string name="id_order">ID вышего заказа</string>
     <string name="name">Ваше Имя и Фамилия</string>
     <string name="password">Ваш пароль</string>
-    <string name="hello_name_client">Здравствуйте, Ростислав</string>
+    <string name="hello_name_client">Здравствуйте, Ростислав!</string>
     <string name="order_info_client">Информация о Вашем заказе</string>
     <string name="info_company">Производство архитектруного фасадного декора</string>
     <string name="info_name">ООО «Кристалл»</string>

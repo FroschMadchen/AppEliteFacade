@@ -16,12 +16,13 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = ThemeColors.Gloomy.primary,
-    surface = ThemeColors.Gloomy.surface,
-    background = ThemeColors.Gloomy.background,
-    onPrimary = ThemeColors.Gloomy.text,
-    onSecondary = ThemeColors.Gloomy.textTitle
-
+    primary = ThemeColors.Night.primary,
+    surface = ThemeColors.Night.surface,
+    background = ThemeColors.Night.background,
+    onPrimary = ThemeColors.Night.text,
+    onSecondary = ThemeColors.Night.textTitle,
+    onBackground = ThemeColors.Night.gradient1,
+    onSurface = ThemeColors.Night.gradient0
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -29,7 +30,10 @@ private val LightColorScheme = lightColorScheme(
     surface = ThemeColors.Day.surface,
     background = ThemeColors.Day.background,
     onPrimary = ThemeColors.Day.text,
-    onSecondary = ThemeColors.Day.textTitle
+    onSecondary = ThemeColors.Day.textTitle,
+    onBackground = ThemeColors.Day.gradient1,
+    onSurface = ThemeColors.Day.gradient0
+
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

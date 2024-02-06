@@ -51,6 +51,10 @@ android {
 
 dependencies {
 
+    implementation("androidx.compose.ui:ui:1.6.0")
+    implementation("androidx.compose.material:material:1.6.0")
+    implementation("androidx.navigation:navigation-compose:2.8.0-alpha01")
+
     implementation("com.android.volley:volley:1.2.1")
     implementation("com.google.accompanist:accompanist-pager:0.28.0")
     implementation("com.google.accompanist:accompanist-pager-indicators:0.28.0")

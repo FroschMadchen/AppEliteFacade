@@ -14,8 +14,6 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
-
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -26,29 +24,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.elitefacade.R
 import com.example.elitefacade.ui.theme.backgroundBtn
 import com.example.elitefacade.ui.theme.backgroundBtn323
-
 import com.example.elitefacade.ui.theme.gradient0
-import com.example.elitefacade.ui.theme.gradient1
 
 
 @Composable
 fun ViewSingInClient(navController: NavController) {
-
     Column(
         modifier = Modifier
             .background(Color.Transparent)
@@ -71,22 +62,21 @@ fun ViewSingInClient(navController: NavController) {
                 .align(
                     Alignment.CenterHorizontally
                 ),
-                color = MaterialTheme.colorScheme.onPrimary,
-                textAlign = TextAlign.Center
-            )
-                    // SimpleFilledTextFieldSample()
-                    TextFieldView (stringResource(id = R.string.name))
-                    TextFieldView (stringResource(id = R.string.id_order))
+            color = MaterialTheme.colorScheme.onPrimary,
+            textAlign = TextAlign.Center
+        )
+        TextFieldView(stringResource(id = R.string.name))
+        TextFieldView(stringResource(id = R.string.id_order))
 
-                    AdditionalFunSingIn ()
+        AdditionalFunSingIn()
 
-                    Button (
-                    onClick = {
-                        navController.navigate("ScreenOrderClient")
-                    },
+        Button(
+            onClick = {
+                navController.navigate("ScreenNavBar")
+            },
             colors = ButtonDefaults.buttonColors(
-                contentColor = backgroundBtn,
-                containerColor = backgroundBtn
+                contentColor = MaterialTheme.colorScheme.onSecondary,
+                containerColor = MaterialTheme.colorScheme.onSecondary
             ),
             modifier = Modifier
                 .padding(top = 15.dp, end = 10.dp, start = 10.dp)
@@ -116,8 +106,8 @@ fun TextFieldView(hint: String) {
                 width = 5.dp,
                 brush = Brush.horizontalGradient(
                     listOf(
-                        gradient1,
-                        gradient0
+                        MaterialTheme.colorScheme.onBackground,
+                        MaterialTheme.colorScheme.onSurface
                     )
                 ),
                 shape = RoundedCornerShape(15.dp),
@@ -129,8 +119,6 @@ fun TextFieldView(hint: String) {
         textStyle = (typography.titleSmall),
         shape = RoundedCornerShape(15.dp),
         colors = TextFieldDefaults.colors(
-            /*backgroundColorEditText,
-            backgroundColorEditText,*/
             focusedTextColor = MaterialTheme.colorScheme.onPrimary,
             cursorColor = Color.Blue, // Настроить цвет курсора
             focusedIndicatorColor = Color.Transparent,
@@ -141,9 +129,9 @@ fun TextFieldView(hint: String) {
     )
 }
 
+
 @Composable
 fun AdditionalFunSingIn() {
-
     Row(
         modifier = Modifier
             .fillMaxWidth(),
@@ -164,11 +152,10 @@ fun AdditionalFunSingIn() {
             Text(
                 stringResource(id = R.string.remember_me),
                 fontSize = 14.sp,
-                color = backgroundBtn323,
+                color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
         }
-
         val label = remember { mutableStateOf("Забыли данные входа?") }
         TextButton(onClick = { label.value = "Hello" }) {
             Text(
@@ -181,7 +168,5 @@ fun AdditionalFunSingIn() {
                     .padding(start = 10.dp)
             )
         }
-
-
     }
 }
