@@ -91,7 +91,7 @@ fun ScreenTabLayout(navController: NavController) {
             ) { index ->
                 val list = when (index) {
                     0 -> ViewSingInClient(navController)
-                    1 -> ViewSignInEmployee()
+                    1 -> ViewSignInEmployee(navController)
                     else -> ViewSingInClient(navController)
                 }
             }

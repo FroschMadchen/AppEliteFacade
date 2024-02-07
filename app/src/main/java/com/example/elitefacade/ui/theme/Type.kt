@@ -21,27 +21,34 @@ val Typography = Typography(
         fontFamily = FontFamily(Font(R.font.sf_pro_display_medium)),
         fontWeight = FontWeight.Normal,
         fontSize = 28.sp,
-       // lineHeight = 28.sp,
+        // lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
     titleMedium = TextStyle(
-        fontFamily =FontFamily(Font(R.font.sf_pro_display_regular)),
+        fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
         fontWeight = FontWeight.Normal,
         fontSize = 20.sp,
         //lineHeight = 16.sp,
         letterSpacing = 0.sp
     ),
     titleSmall = TextStyle(
-        fontFamily =FontFamily(Font(R.font.sf_pro_display_regular)),
+        fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     ),
     displayMedium = TextStyle(
-        fontFamily =FontFamily(Font(R.font.sf_pro_display_medium)),
+        fontFamily = FontFamily(Font(R.font.sf_pro_display_medium)),
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp
+    ),
+    labelSmall = TextStyle(
+        fontFamily = FontFamily(Font(R.font.sf_pro_display_medium)),
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     )

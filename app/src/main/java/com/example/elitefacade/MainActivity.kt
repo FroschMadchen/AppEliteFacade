@@ -10,8 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.elitefacade.screen.views.BottomNavigtionClient.Order.OrderClientPrevView
-import com.example.elitefacade.screen.views.BottomNavigtionClient.ScreenNavBar
+import com.example.elitefacade.screen.views.BottomNavigationEmployee.ScreenNavBarEmployee
+
+import com.example.elitefacade.screen.views.BottomNavigtionClient.ScreenNavBarClient
 import com.example.elitefacade.screen.views.SingIn.ScreenTabLayout
 import com.example.elitefacade.ui.theme.EliteFacadeTheme
 
@@ -49,11 +50,11 @@ class MainActivity : ComponentActivity() {
                             ScreenTabLayout(navController = navController)
                         }
                         composable("ScreenNavBar") {
-                            ScreenNavBar(navController)
+                            ScreenNavBarClient(navController)
                         }
-                       /* composable("OrderClientPrevView") {
-                            OrderClientPrevView(navController = navController)
-                        }*/
+                       composable("ScreenNavBarEmployee") {
+                           ScreenNavBarEmployee()
+                        }
 
                     }
                     //   AppContainer(windowSizeClass = calculateWindowSizeClass(activity = this))

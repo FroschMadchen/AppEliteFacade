@@ -59,15 +59,6 @@ fun OrderTitle(navController: NavController) {
             .background(Color.Transparent)
     ) {
 
-        IconButton(onClick = { /*navController.navigate("ScreenSingIn")*/  TODO(" Кнопка выхода из регистрации ") }) {
-            Image(
-                painter = painterResource(id = R.drawable.icon_back),
-                contentDescription = "",
-                Modifier.size(30.dp)
-            )
-        }
-
-
 
         Text(
             text = stringResource(id = R.string.hello_name_client),

@@ -4,7 +4,7 @@ package com.example.elitefacade.screen.model
 import com.example.elitefacade.R
 
 
-sealed class BottomNavItem(
+sealed class BottomNavItemClinet(
     val route: String,
     val iconResId: Int,
     val label: String,
@@ -12,14 +12,14 @@ sealed class BottomNavItem(
 ) {
 
     object Order :
-        BottomNavItem(
+        BottomNavItemClinet(
             "Order",
             iconResId = R.drawable.icon_compliance,
             "Заказ"
         )
 
     object Chat :
-        BottomNavItem(
+        BottomNavItemClinet(
             "Chat",
             iconResId = R.drawable.icon_chat_1,
             "Чат",
@@ -27,7 +27,7 @@ sealed class BottomNavItem(
         )
 
     companion object {
-        val allItems: List<BottomNavItem> by lazy {
+        val allItems: List<BottomNavItemClinet> by lazy {
             listOf(Order, Chat) // Список всех объектов BottomNavItem
         }
     }

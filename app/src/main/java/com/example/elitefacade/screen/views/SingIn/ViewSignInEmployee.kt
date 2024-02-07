@@ -20,14 +20,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.elitefacade.R
 import com.example.elitefacade.ui.theme.backgroundBtn
 import com.example.elitefacade.ui.theme.backgroundBtn323
 
 
-@Preview
+
 @Composable
-fun ViewSignInEmployee() {
+fun ViewSignInEmployee(navController: NavController) {
 
     Column(
         modifier = Modifier
@@ -61,7 +62,7 @@ fun ViewSignInEmployee() {
         AdditionalFunSingIn()
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { navController.navigate("ScreenNavBarEmployee") },
             colors = ButtonDefaults.buttonColors(
                 contentColor = MaterialTheme.colorScheme.onSecondary,
                 containerColor = MaterialTheme.colorScheme.onSecondary
