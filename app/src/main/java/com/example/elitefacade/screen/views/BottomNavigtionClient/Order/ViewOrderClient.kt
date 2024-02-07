@@ -14,15 +14,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,7 +29,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.elitefacade.R
 import com.example.elitefacade.screen.model.StatusOrderInfoModel
 import com.example.elitefacade.ui.theme.backgroundBtn323
@@ -47,27 +41,7 @@ fun OrderClientPrevView(navController: NavController) {
 
     Box(Modifier.background(MaterialTheme.colorScheme.background)) {
         OrderTitle(navController)
-        /*
 
-            val navController = rememberNavController()
-            Scaffold(
-                topBar = {
-                    TopAppBar(
-                        title = { },
-                        navigationIcon = {
-                            IconButton(onClick = { navController.navigateUp() }) {
-                                Icon(
-                                    imageVector = Icons.Filled.ArrowBack,
-                                    contentDescription = "Back"
-                                )
-                            }
-                        })
-                }
-            ) {//content body
-
-
-                }
-        */
 
     }
 }
@@ -87,7 +61,7 @@ fun OrderTitle(navController: NavController) {
 
         IconButton(onClick = { /*navController.navigate("ScreenSingIn")*/  TODO(" Кнопка выхода из регистрации ") }) {
             Image(
-                painter = painterResource(id = R.drawable.icon_left),
+                painter = painterResource(id = R.drawable.icon_back),
                 contentDescription = "",
                 Modifier.size(30.dp)
             )

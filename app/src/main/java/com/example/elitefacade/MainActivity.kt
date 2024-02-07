@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                             ScreenTabLayout(navController = navController)
                         }
                         composable("ScreenNavBar") {
-                            ScreenNavBar()
+                            ScreenNavBar(navController)
                         }
                        /* composable("OrderClientPrevView") {
                             OrderClientPrevView(navController = navController)

@@ -12,15 +12,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.ContentAlpha
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,17 +50,32 @@ import com.example.elitefacade.ui.theme.backgroundBtn323
 import com.example.elitefacade.ui.theme.gradient1
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ScreenNavBar() {
-    val navController = rememberNavController()
+fun ScreenNavBar(navController: NavController) {
+    val navController1 = rememberNavController()
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "app bar title") },
+                navigationIcon = {
+                        IconButton(onClick = { navController.navigateUp() }) {
+                            Image(
+                                 painter = painterResource(id = R.drawable.icon_back),
+                                contentDescription = "Back"
+                            )
+                        }
+                    }
+
+            )
+        },
         bottomBar = {
-            BottomBar(navController = navController)
+            BottomBar(navController = navController1)
         }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            BottomNavGraph(navController = navController)
+            BottomNavGraph(navController = navController1)
         }
 
     }
@@ -98,7 +117,7 @@ fun BottomBar(navController: NavController) {
                             .border(
                                 width = 5.dp,
                                 brush = Brush.horizontalGradient(
-                                    if (currentRoute == item.route){
+                                    if (currentRoute == item.route) {
                                         listOf(
                                             MaterialTheme.colorScheme.onBackground,
                                             MaterialTheme.colorScheme.onSurface
