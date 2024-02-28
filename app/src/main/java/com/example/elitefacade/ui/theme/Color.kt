@@ -1,4 +1,4 @@
-package com.example.elitefacade.ui.theme
+package com.example.elitefacade.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -29,7 +29,7 @@ val Pink40 = Color(0xFF7D5260)
         val gradient1:Color,
         val gradient0: Color
     ){
-        object Day:ThemeColors(
+        object Day: ThemeColors(
             background = Color(0xAEEBEAEC),
             surface = Color(0x7737B409),
             primary =  Color(0xFFFFFFFF),
@@ -38,7 +38,7 @@ val Pink40 = Color(0xFF7D5260)
             gradient1 = Color(0xADF98727),
             gradient0 = Color(0x88072A64)
         )
-        object Night:ThemeColors(
+        object Night: ThemeColors(
             background =  Color(0xE9072A64),
             surface = Color(0xC97B7CA5),
             primary = Color(0x619EA9C7),

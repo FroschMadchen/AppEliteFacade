@@ -1,4 +1,4 @@
-package com.example.elitefacade.ui.theme
+package com.example.elitefacade.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

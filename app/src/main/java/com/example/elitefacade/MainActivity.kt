@@ -10,11 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.elitefacade.screen.views.BottomNavigationEmployee.ScreenNavBarEmployee
+import com.example.elitefacade.ui.screen.BottomNavigationEmployee.ScreenNavBarEmployee
 
-import com.example.elitefacade.screen.views.BottomNavigtionClient.ScreenNavBarClient
-import com.example.elitefacade.screen.views.SingIn.ScreenTabLayout
-import com.example.elitefacade.ui.theme.EliteFacadeTheme
+import com.example.elitefacade.ui.screen.BottomNavigtionClient.ScreenNavBarClient
+import com.example.elitefacade.ui.screen.SingIn.ScreenTabLayout
+import com.example.elitefacade.ui.screen.SplashScreen.SplashScreen
+import com.example.elitefacade.presentation.theme.EliteFacadeTheme
+import com.example.elitefacade.ui.navgraphs.MainNavGraph
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +45,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "ScreenSingIn") {
+                    MainNavGraph()
+                    /*val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = "SplashScreen") {
+                        composable("SplashScreen"){
+                            SplashScreen(navController = navController)
+                        }
 
                         composable("ScreenSingIn") {
                             ScreenTabLayout(navController = navController)
@@ -56,7 +62,7 @@ class MainActivity : ComponentActivity() {
                            ScreenNavBarEmployee()
                         }
 
-                    }
+                    }*/
                     //   AppContainer(windowSizeClass = calculateWindowSizeClass(activity = this))
                 }
             }
