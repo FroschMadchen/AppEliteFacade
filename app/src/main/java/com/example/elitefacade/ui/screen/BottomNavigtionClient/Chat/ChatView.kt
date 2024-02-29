@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.typography
 
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -49,7 +50,7 @@ fun ChatView() {
         ) {
             Text(
                 text = "Чат пуст.\n Вы можете написать вашему менеджеру,Урюрюкову Станиславу, по возникшим вопросам. \n Рабочее время с 8:30 по 18:00.\n Спасибо, что вы с нами :)",
-                style = (MaterialTheme.typography.titleMedium),
+                style = typography.labelLarge,
                 color = MaterialTheme.colorScheme.onPrimary,
                 textAlign = TextAlign.Center
             )

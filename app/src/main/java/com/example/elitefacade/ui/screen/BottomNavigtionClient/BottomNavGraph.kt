@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.elitefacade.ui.model.BottomNavItemClinet
 import com.example.elitefacade.ui.screen.BottomNavigtionClient.Chat.ChatView
 import com.example.elitefacade.ui.screen.BottomNavigtionClient.Order.OrderClientPrevView
 

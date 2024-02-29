@@ -1,4 +1,4 @@
-package com.example.elitefacade.ui.model
+package com.example.elitefacade.ui.screen.BottomNavigtionClient
 
 
 import com.example.elitefacade.R

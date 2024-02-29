@@ -32,15 +32,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.elitefacade.R
-import com.example.elitefacade.ui.model.BottomNavItemEmployee
 import com.example.elitefacade.presentation.theme.backgroundBtn
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenNavBarEmployee(navController:NavController) {
+fun ScreenNavBarEmployee(navControllerMain:NavController) {
     val navControllerBarEmployee = rememberNavController()
     Scaffold(
         topBar = {
@@ -50,22 +50,19 @@ fun ScreenNavBarEmployee(navController:NavController) {
                 ),
                 title = { },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
+                    IconButton(onClick = { navControllerMain.navigateUp() }) {
                         Image(
                             painter = painterResource(id = R.drawable.icon_back),
                             contentDescription = "Back", Modifier.size(30.dp)
                         )
                     }
                 }
-
-
-
             )
         },
         bottomBar = { BottomBarEmployee(navControllerBarEmployee) }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            BottomNavGraphEmployee(navController = navControllerBarEmployee)
+            BottomNavGraphEmployee(navController = navControllerBarEmployee,navControllerMain)
         }
     }
 }
@@ -134,7 +131,7 @@ fun BottomBarEmployee(navControllerBarEmployee: NavController) {
                 label = {
                     Text(
                         item.label,
-                        style = (MaterialTheme.typography.labelSmall),
+                        style = (MaterialTheme.typography.headlineSmall),
                         color =  if(currentRoute == item.route){
                             MaterialTheme.colorScheme.onPrimary
                         }else{

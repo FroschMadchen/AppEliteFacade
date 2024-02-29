@@ -39,7 +39,7 @@ fun ViewSignInEmployee(navController: NavController) {
 
         Text(
             text = stringResource(id = R.string.sign_in_employee),
-            style = (MaterialTheme.typography.titleMedium),
+            style = (MaterialTheme.typography.labelMedium),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 10.dp, bottom = 10.dp)

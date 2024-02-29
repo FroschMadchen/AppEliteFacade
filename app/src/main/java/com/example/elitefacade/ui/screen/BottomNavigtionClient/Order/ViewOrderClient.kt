@@ -26,10 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.elitefacade.R
-import com.example.elitefacade.ui.model.StatusOrderInfoModel
 import com.example.elitefacade.presentation.theme.backgroundBtn323
 
 
@@ -37,20 +35,13 @@ import com.example.elitefacade.presentation.theme.backgroundBtn323
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderClientPrevView(navController: NavController) {
-
     Box(Modifier.background(MaterialTheme.colorScheme.background)) {
         OrderTitle(navController)
-
-
     }
 }
 
 @Composable
 fun OrderTitle(navController: NavController) {
-    val romulFontFamily = FontFamily(Font(R.font.sf_pro_display_regular))
-    val romulFontFamily1 = FontFamily(Font(R.font.sf_pro_display_medium))
-
-
 
     Column(
         Modifier
@@ -58,24 +49,21 @@ fun OrderTitle(navController: NavController) {
             .background(Color.Transparent)
     ) {
 
-
         Text(
             text = stringResource(id = R.string.hello_name_client),
-            fontFamily = romulFontFamily1,
-            fontSize = 28.sp,
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier
-                .padding(top = 10.dp, bottom = 10.dp, end = 10.dp),
+                .padding(bottom = 10.dp, end = 10.dp),
             color = MaterialTheme.colorScheme.onSecondary
         )
 
 
-        Text(
+        /*Text(
             text = stringResource(id = R.string.order_info_client),
-            fontFamily = romulFontFamily,
-            fontSize = 22.sp,
+          style=MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(top = 10.dp, bottom = 10.dp),
             color = backgroundBtn323
-        )
+        )*/
 
         ExpandableDeliveryInfo()
 
@@ -98,8 +86,7 @@ fun OrderTitle(navController: NavController) {
                         Row {
                             Text(
                                 text = "Доставка",
-                                fontFamily = romulFontFamily1,
-                                fontSize = 22.sp,
+                                style = MaterialTheme.typography.titleMedium,
                                 modifier = Modifier.padding(
                                     top = 10.dp,
                                     bottom = 10.dp,
@@ -110,8 +97,7 @@ fun OrderTitle(navController: NavController) {
 
                             Text(
                                 text = " В ПУТИ ",
-                                fontFamily = romulFontFamily,
-                                fontSize = 22.sp,
+                                style = MaterialTheme.typography.headlineMedium,
                                 modifier = Modifier
                                     .padding(10.dp, top = 10.dp, bottom = 10.dp)
                                     .background(
@@ -122,7 +108,7 @@ fun OrderTitle(navController: NavController) {
                             )
                         }
 
-                        Column {
+                        Column (Modifier.padding(bottom=5.dp)){
 
                             BoxInfoDelivery(
                                 image = R.drawable.icon_calendar,
@@ -144,11 +130,11 @@ fun OrderTitle(navController: NavController) {
 
             itemsIndexed(
                 listOf(
-                    StatusOrderInfoModel("Изготовление товара", " 28 января 2024 в 21:30"),
-                    StatusOrderInfoModel("Упаковка товара", " 29 января 2024 в 11:30"),
-                    StatusOrderInfoModel("Передано в доставку", " 29 января 2024 в 14:50"),
-                    StatusOrderInfoModel("Едет к вам", " 29 января 2024 в 17:30"),
-                    StatusOrderInfoModel("Прибыл", "Ожидается")
+                    StatusOrderState(status = "Изготовление товара", data = " 28 января 2024 в 21:30"),
+                    StatusOrderState(status="Упаковка товара",data= " 29 января 2024 в 11:30"),
+                    StatusOrderState(status="Передано в доставку", data=" 29 января 2024 в 14:50"),
+                    StatusOrderState(status="Едет к вам", data=" 29 января 2024 в 17:30"),
+                    StatusOrderState(status="Прибыл", data="Ожидается")
                 )
             ) { _, item ->
                 val image = if (item.data == "Ожидается") {
@@ -172,7 +158,7 @@ fun OrderTitle(navController: NavController) {
 }
 
 @Composable
-fun BoxInfoStatus(image: Int, item: StatusOrderInfoModel, color: Color) {
+fun BoxInfoStatus(image: Int, item: StatusOrderState, color: Color) {
     Spacer(modifier = Modifier.padding(5.dp))
     Box(
         modifier = Modifier
@@ -194,14 +180,12 @@ fun BoxInfoStatus(image: Int, item: StatusOrderInfoModel, color: Color) {
             Column(Modifier.padding(start = 10.dp)) {
                 Text(
                     text = item.status,
-                    fontSize = 18.sp,
-                    fontFamily = romulFontFamily,
+                    style = MaterialTheme.typography.labelMedium,
                     color = backgroundBtn323
                 )
                 Text(
                     text = item.data,
-                    fontSize = 16.sp,
-                    fontFamily = romulFontFamily,
+                    style = MaterialTheme.typography.labelSmall,
                     color = backgroundBtn323
                 )
             }
@@ -212,8 +196,8 @@ fun BoxInfoStatus(image: Int, item: StatusOrderInfoModel, color: Color) {
 
 @Composable
 fun BoxInfoDelivery(image: Int, text1: String, text2: String) {
-    Row(modifier = Modifier.padding(top = 10.dp, end = 5.dp, start = 10.dp)) {
-        val romulFontFamily = FontFamily(Font(R.font.sf_pro_display_regular))
+    Row(modifier = Modifier.padding(top = 5.dp, end = 5.dp, start = 10.dp)) {
+
         Image(
             painter = painterResource(image), contentDescription = "",
             Modifier
@@ -224,14 +208,12 @@ fun BoxInfoDelivery(image: Int, text1: String, text2: String) {
         Column(Modifier.padding(start = 10.dp)) {
             Text(
                 text = text1,
-                fontSize = 16.sp,
-                fontFamily = romulFontFamily,
+                style = MaterialTheme.typography.labelSmall,
                 color = backgroundBtn323
             )
             Text(
                 text = text2,
-                fontSize = 18.sp,
-                fontFamily = romulFontFamily,
+                style = MaterialTheme.typography.labelMedium,
                 color = backgroundBtn323
             )
         }

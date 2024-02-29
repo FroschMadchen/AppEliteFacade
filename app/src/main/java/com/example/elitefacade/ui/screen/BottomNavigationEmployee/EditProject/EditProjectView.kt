@@ -1,25 +1,44 @@
 package com.example.elitefacade.ui.screen.BottomNavigationEmployee.EditProject
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.elitefacade.R
+import com.example.elitefacade.ui.utils.ItemProjectList
 
 @Composable
 fun EditProjectView() {
-    Box() {
-        Text(
-            text = stringResource(id = R.string.hello_name_client),
-            fontSize = 28.sp,
+    Column(Modifier.padding(start=10.dp,end=10.dp)) {
+
+        LazyColumn(
             modifier = Modifier
-                .padding(top = 10.dp, bottom = 10.dp, end = 10.dp),
-            color = MaterialTheme.colorScheme.onSecondary
-        )
+                .fillMaxWidth()
+                .padding(5.dp)
+        ) {
+            itemsIndexed(
+                listOf(TitleProjectState("OOO Висакос","Шушорова Е. Л.",""),
+                    TitleProjectState("OAO Бучих","Мандавошкина Ю.Б.",""),
+                    TitleProjectState("OAO Бучих","Мандавошкина Ю.Б.",""),
+                    TitleProjectState("OAO Бучих","Мандавошкина Ю.Б.",""),
+                    TitleProjectState("OAO Бучих","Мандавошкина Ю.Б.","")
+
+                )
+            ) { index, item ->
+
+                ItemProjectList(
+                    nameCompany = item.nameCompany,
+                    item.nameManager
+                )
+            }
+        } /*destination = when (index) {
+        0 -> Route.LIST_PRODUCTS_SCREEN
+        1 -> Route.UNAVAILABLE
+        2 -> Route.UNAVAILABLE
+        else -> ""
+    }*/
     }
 }

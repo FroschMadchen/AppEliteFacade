@@ -36,7 +36,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.elitefacade.R
-import com.example.elitefacade.ui.model.OrderModel
 import com.example.elitefacade.presentation.theme.backgroundBtn323
 
 class OrderList {
@@ -94,12 +93,12 @@ fun ExpandableDeliveryInfo() {
                 LazyColumn {
                     itemsIndexed(
                         listOf(
-                            OrderModel(
+                            OrderState(
                                 R.drawable.image_1,
                                 "Перегородочные бетонные блоки СКЦ 2Р-9 600 шт",
                                 "390х90х188 мм"
                             ), //Перегородочные пазогребневые бетонные блоки серии СКЦ 2Р-9 размером 390х90х188 мм
-                            OrderModel(
+                            OrderState(
                                 R.drawable.image_2,
                                 "Классическая ковка, ГУВ  24 шт",
                                 "1000х50 мм"
@@ -175,7 +174,7 @@ fun ExpandableDeliveryInfoPreview() {
 }
 
 @Composable
-fun ItemColum(order: OrderModel, index:Int) {
+fun ItemColum(order: OrderState, index:Int) {
     val romulFontFamily = FontFamily(Font(R.font.sf_pro_display_regular))
     val romulFontFamily1 = FontFamily(Font(R.font.sf_pro_display_medium))
     val quantity:Int = index+1

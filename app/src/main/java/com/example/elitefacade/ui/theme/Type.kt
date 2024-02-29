@@ -17,21 +17,20 @@ val Typography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
-    titleLarge = TextStyle(
+    titleLarge = TextStyle( // Самый крупный текст (заголовки)
         fontFamily = FontFamily(Font(R.font.sf_pro_display_medium)),
         fontWeight = FontWeight.Normal,
         fontSize = 28.sp,
         // lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
-    titleMedium = TextStyle(
-        fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
+    titleMedium = TextStyle( // средний крупный текст(заголовки)
+        fontFamily = FontFamily(Font(R.font.sf_pro_display_medium)),
         fontWeight = FontWeight.Normal,
-        fontSize = 20.sp,
-        //lineHeight = 16.sp,
+        fontSize = 22.sp,
         letterSpacing = 0.sp
     ),
-    titleSmall = TextStyle(
+    titleSmall = TextStyle( // для маленьких заголовках
         fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
@@ -45,12 +44,41 @@ val Typography = Typography(
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily(Font(R.font.sf_pro_display_medium)),
+    labelMedium = TextStyle( //для мелкого/среднего текста
+        fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
+        fontWeight = FontWeight.Normal,
+        fontSize = 18.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.sp
+    ),
+    labelLarge = TextStyle( //для мелкого/среднего текста
+        fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
+        fontWeight = FontWeight.Normal,
+        fontSize = 22.sp,
+        lineHeight = 22.sp,
+        letterSpacing = 0.5.sp
+    )
+    ,
+    labelSmall = TextStyle( //для мелкого текста
+        fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp
+    ),
+    headlineMedium = TextStyle( // тонкий заголовок (средний)
+        fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
+        fontWeight = FontWeight.Normal,
+        fontSize = 22.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp
+    )
+    ,
+    headlineSmall = TextStyle( // тонкий заголовок нижней навигации
+        fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     )
-
 )

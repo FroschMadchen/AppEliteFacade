@@ -37,7 +37,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.elitefacade.R
-import com.example.elitefacade.ui.model.BottomNavItemClinet
 import com.example.elitefacade.presentation.theme.backgroundBtn
 
 
@@ -161,7 +160,7 @@ fun BottomBar(navController: NavController) {
                 label = {
                     Text(
                         item.label,
-                        style = (MaterialTheme.typography.labelSmall),
+                        style = (MaterialTheme.typography.headlineSmall),
                         color = if(currentRoute == item.route) {
                             MaterialTheme.colorScheme.onPrimary
                         }else{

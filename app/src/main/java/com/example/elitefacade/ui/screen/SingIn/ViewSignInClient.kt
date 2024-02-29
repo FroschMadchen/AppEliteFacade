@@ -12,6 +12,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
@@ -55,7 +56,7 @@ fun ViewSingInClient(navController: NavController) {
         )
         Text(
             text = stringResource(id = R.string.sign_in_client),
-            style = (typography.titleMedium),
+            style = MaterialTheme.typography.labelMedium,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 10.dp, bottom = 10.dp)
@@ -93,6 +94,7 @@ fun ViewSingInClient(navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextFieldView(hint: String) {
     var text by remember { mutableStateOf(hint) }
@@ -118,13 +120,16 @@ fun TextFieldView(hint: String) {
         },
         textStyle = (typography.titleSmall),
         shape = RoundedCornerShape(15.dp),
+
         colors = TextFieldDefaults.colors(
             focusedTextColor = MaterialTheme.colorScheme.onPrimary,
             cursorColor = Color.Blue, // Настроить цвет курсора
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
-            errorIndicatorColor = Color.Red
+            errorIndicatorColor = Color.Red,
+            disabledContainerColor=Color.White,
+            unfocusedContainerColor = Color.White
         )
     )
 }

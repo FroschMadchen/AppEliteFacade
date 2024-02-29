@@ -6,6 +6,7 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+
 android {
     namespace = "com.example.elitefacade"
     compileSdk = 34
@@ -53,10 +54,15 @@ android {
 }
 
 dependencies {
+    //otpview(mask password)
+    implementation ("com.github.mukeshsolanki.android-otpview-pinview:otpview:3.1.0")
+    implementation("com.github.mukeshsolanki.android-otpview-pinview:otpview-compose:3.1.0")
+
+    //firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
     implementation("com.google.firebase:firebase-analytics")
 
-
+    //lottie animation
     implementation("com.airbnb.android:lottie-compose:6.1.0")
 
     implementation("androidx.compose.ui:ui:1.6.0")
@@ -66,7 +72,6 @@ dependencies {
     implementation("com.android.volley:volley:1.2.1")
     implementation("com.google.accompanist:accompanist-pager:0.28.0")
     implementation("com.google.accompanist:accompanist-pager-indicators:0.28.0")
-
 
     implementation("androidx.navigation:navigation-compose:2.7.6")
 

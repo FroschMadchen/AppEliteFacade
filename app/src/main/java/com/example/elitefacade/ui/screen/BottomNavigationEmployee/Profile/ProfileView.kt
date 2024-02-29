@@ -25,12 +25,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.elitefacade.R
 import com.example.elitefacade.presentation.theme.LightGreyBackground
+import com.example.elitefacade.ui.screen.Screen
 
-@Preview
+
 @Composable
-fun ProfileView() {
+fun ProfileView(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,11 +43,15 @@ fun ProfileView() {
 
             Button(modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp, start = 16.dp,end=16.dp),
+                .padding(top = 20.dp, start = 16.dp, end = 16.dp),
                 colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White
-            ), shape = RoundedCornerShape(15.dp), onClick = { /*TODO*/ }) {
-                Text(text = "Регистрация нового сотрудника", color = Color.Black)
+                    containerColor = Color.White
+                ), shape = RoundedCornerShape(15.dp), onClick = { navController.navigate(Screen.Registration.route) }) {
+                Text(
+                    text = "Регистрация нового сотрудника",
+                    color = Color.Black,
+                    style = MaterialTheme.typography.labelMedium
+                )
             }
         }
 

@@ -1,21 +1,22 @@
 package com.example.elitefacade.ui.screen.BottomNavigationEmployee
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.elitefacade.ui.model.BottomNavItemEmployee
 import com.example.elitefacade.ui.screen.BottomNavigationEmployee.Chat.ChatEmployeeView
 import com.example.elitefacade.ui.screen.BottomNavigationEmployee.EditProject.EditProjectView
 import com.example.elitefacade.ui.screen.BottomNavigationEmployee.Profile.ProfileView
 import com.example.elitefacade.ui.screen.BottomNavigationEmployee.ViewingProject.ViewingProjectView
+import com.example.elitefacade.ui.screen.Screen
 
 @Composable
-fun BottomNavGraphEmployee(navController: NavHostController){
+fun BottomNavGraphEmployee(navController: NavHostController, navControllerMain: NavController){
     NavHost(navController = navController, startDestination = BottomNavItemEmployee.Profile.route){
         composable( route = BottomNavItemEmployee.Profile.route){
-            ProfileView()
+            ProfileView(navControllerMain)
         }
         composable(route= BottomNavItemEmployee.Chat.route){
             ChatEmployeeView()
@@ -26,6 +27,7 @@ fun BottomNavGraphEmployee(navController: NavHostController){
         composable(route = BottomNavItemEmployee.ViewingProjects.route){
             ViewingProjectView()
         }
+
     }
 
 }
