@@ -1,4 +1,4 @@
-package com.example.elitefacade.ui.utils
+package com.example.elitefacade.ui.generic
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.elitefacade.R
 
@@ -43,6 +44,17 @@ fun ItemProjectList(nameCompany: String, nameManager: String) {
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
+                Row {
+                    Text(
+                        text = stringResource(id = R.string.edit_project_status_project),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                    Text(text = stringResource(id = R.string.edit_project_status_project_state),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurface)
+                }
+
 
             }
             Icon(

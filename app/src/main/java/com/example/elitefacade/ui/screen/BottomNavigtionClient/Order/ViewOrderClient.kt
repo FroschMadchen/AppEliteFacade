@@ -181,12 +181,12 @@ fun BoxInfoStatus(image: Int, item: StatusOrderState, color: Color) {
                 Text(
                     text = item.status,
                     style = MaterialTheme.typography.labelMedium,
-                    color = backgroundBtn323
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
                 Text(
                     text = item.data,
                     style = MaterialTheme.typography.labelSmall,
-                    color = backgroundBtn323
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
             }
         }

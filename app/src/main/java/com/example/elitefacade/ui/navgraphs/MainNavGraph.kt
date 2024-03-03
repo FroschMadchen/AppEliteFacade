@@ -35,9 +35,7 @@ fun MainNavGraph() {
         composable(Screen.Registration.route) {
             RegistrationScreen(navController)
         }
-        composable(Screen.RegistrationGetCode.route){
-            RegistrationGetCodeScreen(navController)
-        }
+
 
     }
 }

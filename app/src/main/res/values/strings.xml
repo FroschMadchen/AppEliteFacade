@@ -18,4 +18,30 @@
     <string name="complete">Завершить регистрацию</string>
     <string name="Confirmation"> Пожалуйста, введите код,отправленный вам на почту</string>
 
+
+    <string name="sign_up">Регистрация пользователя</string>
+    <string name="sign_up_user_name_hint">ФИО пользователя</string>
+    <string name="sign_up_user_name"> Отчество Имя Фамилия </string>
+
+    <string name="sing_up_job_header">Должность</string>
+    <string name="sing_up_job_hint">Введите должность</string>
+
+    <string name="sing_up_email_header">Почта</string>
+    <string name="sing_up_email_hint">Введите почту</string>
+
+    <string name="sing_up_password_header">Пароль</string>
+    <string name="sing_up_password_hint">Введите пароль</string>
+
+    <string name="sing_up_password2_header">Повторный пароль</string>
+    <string name="sing_up_password2_hint">Введите пароль повторно</string>
+
+
+    <string name="edit_project_status_project_state">Активный</string>
+    <string name="edit_project_status_project">Статус:</string>
+
+
+
+
+
+
 </resources>

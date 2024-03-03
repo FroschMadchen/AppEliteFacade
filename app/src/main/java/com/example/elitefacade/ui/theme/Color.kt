@@ -7,7 +7,8 @@ val LightGreyBackground = Color(0xAEEBEAEC)
 val Pink80 = Color(0xFFEFB8C8)
 val background = Color(0xBF839ABE)
 val backgroundBtn = Color(0xFFF98727)
-val backgroundBtn323 = Color(0xE9072A64)
+val backgroundBtn323DFD = Color(0xE9072A64)
+val backgroundBtn323 = Color(0xFFF76B6B)
 
 val backgroundButtonCheck = Color(0x7737B409)
 
@@ -27,7 +28,9 @@ val Pink40 = Color(0xFF7D5260)
         val text:Color,
         val textTitle:Color,
         val gradient1:Color,
-        val gradient0: Color
+        val gradient0: Color,
+        val error0:Color,
+        val error1:Color
     ){
         object Day: ThemeColors(
             background = Color(0xAEEBEAEC),
@@ -36,7 +39,9 @@ val Pink40 = Color(0xFF7D5260)
             text =  Color(0xE9072A64),
             textTitle = Color(0xFFF98727),
             gradient1 = Color(0xADF98727),
-            gradient0 = Color(0x88072A64)
+            gradient0 = Color(0x88072A64),
+            error1 = Color(0xFFC52424),
+            error0 = Color(0xFFFAB6B6)
         )
         object Night: ThemeColors(
             background =  Color(0xE9072A64),
@@ -45,7 +50,9 @@ val Pink40 = Color(0xFF7D5260)
             text =  Color(0xFFFFFFFF),
             textTitle = Color(0xFFF98727),
             gradient1 = Color(0xADF98727),
-            gradient0 = Color(0x88072A64)
+            gradient0 = Color(0x88072A64),
+            error1 = Color(0xFFC52424),
+            error0 = Color(0xFFFAB6B6)
         )
     }
 
