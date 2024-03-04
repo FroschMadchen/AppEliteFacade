@@ -2,7 +2,6 @@ package com.example.elitefacade.ui.screen.SingIn
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.compose.ui.platform.LocalContext
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -18,18 +17,17 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.elitefacade.R
+import com.example.elitefacade.model.entity.AuthResult
 import com.example.elitefacade.ui.screen.Screen
 import com.example.elitefacade.ui.screen.SingIn.LoginVM.LoginUIEvent
 import com.example.elitefacade.ui.screen.SingIn.LoginVM.LoginViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 @SuppressLint("SuspiciousIndentation")
@@ -40,6 +38,21 @@ fun ViewSignInEmployee(
 ) {
     val context = LocalContext.current
 
+    LaunchedEffect(loginViewModel.loginUiState){
+        loginViewModel.authResult.collect{result ->
+            when(result) {
+                AuthResult.Authorized -> {
+                    navController.navigate(Screen.NavBarEmployee.route)
+                    context.showToast("успешный вход", Toast.LENGTH_LONG)
+                }
+                AuthResult.Unauthorized -> {
+
+                    context.showToast("не получилось войти ", Toast.LENGTH_LONG)
+                }
+                AuthResult.UnknownError -> TODO()
+            }
+        }
+    }
     Column(
         modifier = Modifier
             .background(Color.Transparent)
@@ -84,18 +97,6 @@ fun ViewSignInEmployee(
             onClick = {
                 loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked)
 
-
-                val successLogin = loginViewModel.uiState.value.successLogin
-                if (successLogin) {
-
-                        navController.navigate(Screen.NavBarEmployee.route)
-                        context.showToast("успешный вход", Toast.LENGTH_LONG)
-
-                } else {
-
-                        context.showToast("не получилось войти ", Toast.LENGTH_LONG)
-
-                }
                       },
             colors = ButtonDefaults.buttonColors(
                 contentColor = MaterialTheme.colorScheme.onSecondary,
