@@ -27,7 +27,7 @@ val Typography = Typography(
     titleMedium = TextStyle( // средний крупный текст(заголовки)
         fontFamily = FontFamily(Font(R.font.sf_pro_display_medium)),
         fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
+        fontSize = 22.sp, //22
         letterSpacing = 0.sp
     ),
     titleSmall = TextStyle( // для маленьких заголовках

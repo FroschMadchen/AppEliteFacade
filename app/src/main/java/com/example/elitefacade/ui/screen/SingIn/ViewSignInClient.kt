@@ -66,8 +66,8 @@ fun ViewSingInClient(navController: NavController) {
             color = MaterialTheme.colorScheme.onPrimary,
             textAlign = TextAlign.Center
         )
-        TextFieldView(stringResource(id = R.string.name))
-        TextFieldView(stringResource(id = R.string.id_order))
+        TextFieldView(stringResource(id = R.string.name), onTextChanged = { TODO() })
+        TextFieldView(stringResource(id = R.string.id_order),onTextChanged = { TODO() })
 
         AdditionalFunSingIn()
 
@@ -96,8 +96,8 @@ fun ViewSingInClient(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldView(hint: String) {
-    var text by remember { mutableStateOf(hint) }
+fun TextFieldView(hint: String, onTextChanged: (String) -> Unit) {
+    var textValue by remember { mutableStateOf("") }
 
     TextField(
 
@@ -114,9 +114,16 @@ fun TextFieldView(hint: String) {
                 ),
                 shape = RoundedCornerShape(15.dp),
             ),
-        value = text,
+        value = textValue,
         onValueChange = {
-            text = it
+            textValue = it
+            onTextChanged(it)
+        },
+        placeholder = {
+            Text(
+                text = hint,
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onPrimary)
         },
         textStyle = (typography.titleSmall),
         shape = RoundedCornerShape(15.dp),

@@ -18,7 +18,7 @@
     <string name="complete">Завершить регистрацию</string>
     <string name="Confirmation"> Пожалуйста, введите код,отправленный вам на почту</string>
 
-
+    *Sing Up
     <string name="sign_up">Регистрация пользователя</string>
     <string name="sign_up_user_name_hint">ФИО пользователя</string>
     <string name="sign_up_user_name"> Отчество Имя Фамилия </string>
@@ -35,13 +35,12 @@
     <string name="sing_up_password2_header">Повторный пароль</string>
     <string name="sing_up_password2_hint">Введите пароль повторно</string>
 
-
     <string name="edit_project_status_project_state">Активный</string>
     <string name="edit_project_status_project">Статус:</string>
 
-
-
-
+    *Profile view -> BottomNavEmployee
+    <string name="profile_view_edit_password">Сменить пароль</string>
+    <string name="profile_view_email">Электронная почта</string>
 
 
 </resources>

@@ -128,7 +128,7 @@ class SignUpViewModel : ViewModel() {
         val userData = hashMapOf(
             "data" to createCaption(),
             "email" to email,
-            "idCreator" to AppSession.keyUser,
+            "idCreator" to AppSession.keyUserSession,
             "jobTitle" to jobTitle,
             "key" to createKey(),
             "userName" to userName,

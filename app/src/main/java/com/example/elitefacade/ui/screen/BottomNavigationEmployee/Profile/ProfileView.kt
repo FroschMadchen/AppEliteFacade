@@ -22,12 +22,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.elitefacade.R
 import com.example.elitefacade.presentation.theme.LightGreyBackground
+import com.example.elitefacade.ui.screen.AppSession
 import com.example.elitefacade.ui.screen.Screen
 
 
@@ -46,10 +48,12 @@ fun ProfileView(navController: NavController) {
                 .padding(top = 20.dp, start = 16.dp, end = 16.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White
-                ), shape = RoundedCornerShape(15.dp), onClick = { navController.navigate(Screen.Registration.route) }) {
+                ),
+                shape = RoundedCornerShape(15.dp),
+                onClick = { navController.navigate(Screen.Registration.route) }) {
                 Text(
                     text = "Регистрация нового сотрудника",
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     style = MaterialTheme.typography.labelMedium
                 )
             }
@@ -78,8 +82,18 @@ fun InfoCard(nameUser: String) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column() {
-                    Text(text = nameUser, fontSize = 20.sp)
-                    Text(text = "Начальник отдела больших сосоков", fontSize = 16.sp)
+
+                    Text(
+                        text = AppSession.userNameSession,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    Text(
+                        text = AppSession.jobTitleSession,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        style = MaterialTheme.typography.labelMedium
+                    )
 
                 }
 
@@ -104,8 +118,11 @@ fun InfoCard(nameUser: String) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    Text(text = "Электронная почта", fontSize = 20.sp)
-                    Text(text = "сабака@mail.re", fontSize = 16.sp)
+                    Text(
+                        text = stringResource(id = R.string.profile_view_email),   color = MaterialTheme.colorScheme.onPrimary,
+                        style = MaterialTheme.typography.titleMedium)
+                    Text(text = AppSession.emailSession,   color = MaterialTheme.colorScheme.onPrimary,
+                        style = MaterialTheme.typography.labelMedium)
 
                 }
 
@@ -133,8 +150,9 @@ fun InfoCard(nameUser: String) {
             ) {
 
                 Text(
-                    text = "Сменить пароль",
-                    fontSize = 20.sp,
+                    text = stringResource(id = R.string.profile_view_edit_password),
+                    style=MaterialTheme.typography.titleMedium,
+                    color=MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier.align(Alignment.CenterVertically)
                 )
 
@@ -144,10 +162,7 @@ fun InfoCard(nameUser: String) {
                         contentDescription = ""
                     )
                 }
-
             }
-
-
         }
     }
 }

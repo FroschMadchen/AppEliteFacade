@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "158645973082",
+    "project_id": "elitefacade-af1ba",
+    "storage_bucket": "elitefacade-af1ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158645973082:android:9c97d44e315bac2d44e863",
+        "android_client_info": {
+          "package_name": "com.example.elitefacade"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK8wFIWqwEatf5kXxSdEUQRAKgl5kR-pg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

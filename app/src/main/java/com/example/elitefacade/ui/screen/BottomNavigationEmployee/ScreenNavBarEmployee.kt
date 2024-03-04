@@ -32,37 +32,50 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.elitefacade.R
 import com.example.elitefacade.presentation.theme.backgroundBtn
+import com.example.elitefacade.ui.screen.AppSession
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenNavBarEmployee(navControllerMain:NavController) {
+fun ScreenNavBarEmployee(navControllerMain: NavController) {
     val navControllerBarEmployee = rememberNavController()
     Scaffold(
         topBar = {
-            TopAppBar(
-                colors= TopAppBarDefaults.topAppBarColors(
-                    containerColor= Color.Transparent
+            TopAppBar(modifier = Modifier.fillMaxWidth(),
+                // Указываем выравнивание всей TopAppBar по правому краю
+
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent
                 ),
                 title = { },
-                navigationIcon = {
-                    IconButton(onClick = { navControllerMain.navigateUp() }) {
+                actions = {
+                    IconButton(onClick = {
+                        navControllerMain.navigateUp()
+                        AppSession.emailSession = ""
+                        AppSession.jobTitleSession = ""
+                        AppSession.userNameSession = ""
+                        AppSession.passwordSession = ""
+                        AppSession.keyUserSession = ""
+                    }) {
+
                         Image(
-                            painter = painterResource(id = R.drawable.icon_back),
-                            contentDescription = "Back", Modifier.size(30.dp)
-                        )
+                            painter = painterResource(id = R.drawable.icon_input),
+                            contentDescription = "Input",
+                            Modifier.size(30.dp),
+
+                            )
                     }
                 }
+
             )
         },
         bottomBar = { BottomBarEmployee(navControllerBarEmployee) }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            BottomNavGraphEmployee(navController = navControllerBarEmployee,navControllerMain)
+            BottomNavGraphEmployee(navController = navControllerBarEmployee, navControllerMain)
         }
     }
 }
@@ -116,9 +129,9 @@ fun BottomBarEmployee(navControllerBarEmployee: NavController) {
                                 painter = painterResource(id = item.iconResId),
                                 contentDescription = null,
                                 modifier = Modifier.size(25.dp),
-                                tint = if(currentRoute == item.route){
+                                tint = if (currentRoute == item.route) {
                                     MaterialTheme.colorScheme.onPrimary
-                                }else{
+                                } else {
                                     Color.LightGray
                                 }
 
@@ -132,9 +145,9 @@ fun BottomBarEmployee(navControllerBarEmployee: NavController) {
                     Text(
                         item.label,
                         style = (MaterialTheme.typography.headlineSmall),
-                        color =  if(currentRoute == item.route){
+                        color = if (currentRoute == item.route) {
                             MaterialTheme.colorScheme.onPrimary
-                        }else{
+                        } else {
                             Color.LightGray
                         },
                         modifier = Modifier.padding(bottom = 4.dp)
