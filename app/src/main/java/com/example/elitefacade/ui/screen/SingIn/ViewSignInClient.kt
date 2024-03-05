@@ -12,7 +12,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
@@ -66,7 +65,10 @@ fun ViewSingInClient(navController: NavController) {
             color = MaterialTheme.colorScheme.onPrimary,
             textAlign = TextAlign.Center
         )
-        TextFieldView(stringResource(id = R.string.name), onTextChanged = { TODO() },errorStatus = false)
+        TextFieldView(
+            stringResource(id = R.string.name),
+            onTextChanged = { TODO() },
+            errorStatus = false)
         TextFieldView(stringResource(id = R.string.id_order),onTextChanged = { TODO() },errorStatus = false)
 
         AdditionalFunSingIn()
@@ -95,7 +97,6 @@ fun ViewSingInClient(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextFieldView(hint: String, onTextChanged: (String) -> Unit,errorStatus:Boolean) {
     var textValue by remember { mutableStateOf("") }

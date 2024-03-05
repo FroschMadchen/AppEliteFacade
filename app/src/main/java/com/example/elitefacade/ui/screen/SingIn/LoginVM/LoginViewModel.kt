@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.elitefacade.model.entity.AuthResult
 import com.example.elitefacade.ui.screen.AppSession
-import com.example.elitefacade.ui.screen.rules.ValidatorSingUp
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -16,7 +15,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-
 
 
 class LoginViewModel : ViewModel() {
@@ -51,31 +49,9 @@ class LoginViewModel : ViewModel() {
 
 
             }
-
-            else -> {}
         }
-        validateLoginUIDataWithRules()
     }
 
-    private fun validateLoginUIDataWithRules() {
-        val userNameResult = ValidatorSingUp.validateNameUser(
-            userName = _loginUiState.value.userName
-        )
-
-        val passwordResult = ValidatorSingUp.validatePassword(
-            password = _loginUiState.value.password
-        )
-
-        _loginUiState.value = _loginUiState.value.copy(
-            userNameError = userNameResult.status,
-            passwordError = passwordResult.status
-        )
-
-        allValidationsPassed.value = userNameResult.status && passwordResult.status
-        _loginUiState.value.onUnavailable= allValidationsPassed.value
-        Log.i(TAG,"${userNameResult.status} - ${passwordResult.status}")
-
-    }
 
     private fun login() {
 

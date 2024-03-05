@@ -3,29 +3,22 @@ package com.example.elitefacade.ui.screen.SingIn
 import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,9 +34,7 @@ import com.example.elitefacade.model.entity.AuthResult
 import com.example.elitefacade.ui.screen.Screen
 import com.example.elitefacade.ui.screen.SingIn.LoginVM.LoginUIEvent
 import com.example.elitefacade.ui.screen.SingIn.LoginVM.LoginViewModel
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.pagerTabIndicatorOffset
-import kotlinx.coroutines.launch
+import com.example.elitefacade.ui.utils.isValidLength
 
 
 @SuppressLint("SuspiciousIndentation")
@@ -54,7 +45,7 @@ fun ViewSignInEmployee(
 ) {
     val context = LocalContext.current
     var notSuccess by remember { mutableStateOf(false) }
-
+    val state by loginViewModel.loginUiState.collectAsState()
     LaunchedEffect(loginViewModel.loginUiState) {
         loginViewModel.authResult.collect { result ->
             when (result) {
@@ -103,7 +94,7 @@ fun ViewSignInEmployee(
             onTextChanged = {
                 loginViewModel.onEvent(event = LoginUIEvent.UserNameCheck(it))
             },
-            errorStatus = loginViewModel.loginUiState.value.userNameError
+            errorStatus = state.userName.isValidLength(6)
         )
 
         Spacer(modifier = Modifier.padding(8.dp))
@@ -113,14 +104,17 @@ fun ViewSignInEmployee(
             onTextChanged = {
                 loginViewModel.onEvent(event = LoginUIEvent.PasswordCheck(it))
             },
-            errorStatus = loginViewModel.loginUiState.value.passwordError
+            errorStatus = state.password.isValidLength(6)
         )
 
         AdditionalFunSingIn()
 
         Button(
             onClick = { loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked) },
-            enabled = loginViewModel.loginUiState.value.onUnavailable,
+            enabled = state.let {
+                it.userName.isValidLength(6) &&
+                        it.password.isValidLength(6)
+            },
             colors = ButtonDefaults.buttonColors(
                 contentColor = MaterialTheme.colorScheme.onSecondary,
                 containerColor = MaterialTheme.colorScheme.onSecondary

@@ -1,15 +1,11 @@
 package com.example.elitefacade.ui.screen.Registration
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -26,6 +22,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,7 +33,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -46,11 +42,8 @@ import com.example.elitefacade.presentation.theme.gradient0
 import com.example.elitefacade.ui.generic.ButtonComponent
 import com.example.elitefacade.ui.generic.TextFieldSingUp
 import com.example.elitefacade.ui.generic.TextFieldSingUpPassword
-import com.example.elitefacade.ui.screen.SingIn.LoginVM.LoginUIEvent
-import com.example.elitefacade.ui.screen.SingIn.LoginVM.LoginViewModel
 import com.example.elitefacade.ui.screen.Screen
-import com.example.elitefacade.ui.screen.SingIn.showToast
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.example.elitefacade.ui.utils.isValidLength
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,6 +52,7 @@ fun RegistrationScreen(
     navController: NavHostController,
     signUpViewModel: SignUpViewModel = viewModel()
 ) {
+    val state by signUpViewModel.registrationUIState.collectAsState()
     Scaffold(topBar = {
         TopAppBar(
             colors = TopAppBarDefaults.topAppBarColors(
@@ -105,12 +99,12 @@ fun RegistrationScreen(
                         onTextChanged = {
                             signUpViewModel.onEvent(SignUpUIEvent.UserNameChanged(it))
                         },
-                        errorStatus = signUpViewModel.registrationUIState.value.userNameValidate
+                        errorStatus = state.userName.isValidLength(6)
                     )
 
                     TwoExclusiveCheckBoxes(onTextChanged = {
                         signUpViewModel.onEvent(SignUpUIEvent.positionChanged(it))
-                    }, errorStatus = signUpViewModel.registrationUIState.value.positionValidate)
+                    }, errorStatus = state.position.isNotEmpty())
 
 
                     TextFieldSingUp(
@@ -120,7 +114,7 @@ fun RegistrationScreen(
                         onTextChanged = {
                             signUpViewModel.onEvent(SignUpUIEvent.jobTitleChanged(it))
                         },
-                        errorStatus = signUpViewModel.registrationUIState.value.jobTitleValidate
+                        errorStatus = state.jobTitle.isValidLength(4)
                     )
                     TextFieldSingUp(
                         title = stringResource(id = R.string.sing_up_email_header),
@@ -129,7 +123,7 @@ fun RegistrationScreen(
                         onTextChanged = {
                             signUpViewModel.onEvent(SignUpUIEvent.EmailChanged(it))
                         },
-                        errorStatus = signUpViewModel.registrationUIState.value.emailValidate
+                        errorStatus = state.email.isNotEmpty()
 
                     )
                     TextFieldSingUpPassword(
@@ -152,7 +146,8 @@ fun RegistrationScreen(
                             } else {
                                 Log.i("RegistrationScreen", "$it  -- ${password2.value}")
                             }
-                        }, errorStatus = signUpViewModel.registrationUIState.value.passwordValidate,
+                        },
+                        errorStatus = state.password.isValidLength(6),
                         errorStatusIdentity = (password1.value == password2.value)
 
 
@@ -164,7 +159,12 @@ fun RegistrationScreen(
                             signUpViewModel.onEvent(SignUpUIEvent.RegisterButtonClicked)
                             navController.navigate(Screen.NavBarEmployee.route)
                         },
-                        onUnavailable = signUpViewModel.registrationUIState.value.buttonRegisteration,
+                        onUnavailable = state.let {
+                            it.email.isNotEmpty() &&
+                            it.password.isValidLength(6) &&
+                            it.userName.isValidLength(6) &&
+                            it.jobTitle.isValidLength(4) &&
+                            it.position.isNotEmpty() },
                     )
                 }
             }
