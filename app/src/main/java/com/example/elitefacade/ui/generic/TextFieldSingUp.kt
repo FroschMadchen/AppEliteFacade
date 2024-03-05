@@ -25,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.elitefacade.R
 
@@ -35,10 +37,116 @@ fun TextFieldSingUp(
     title: String,
     hint: String,
     icon: Int,
-    isPassword: Boolean,
     onTextChanged: (String) -> Unit,
     errorStatus: Boolean = false
 ) {
+
+    var textValue by rememberSaveable {
+        mutableStateOf("")
+    }
+
+    Column(Modifier.padding(top = 3.dp, bottom = 3.dp)) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier.padding(top = 3.dp, bottom = 3.dp)
+        )
+
+        Box(
+            Modifier
+                .border(
+                    width = if (textValue.isNotEmpty()) 1.dp else 1.dp,
+                    shape = RoundedCornerShape(15.dp),
+                    brush = Brush.horizontalGradient(
+                        if (errorStatus) {
+                            listOf(
+                                MaterialTheme.colorScheme.onBackground,
+                                MaterialTheme.colorScheme.onSurface
+                            )
+                        } else {
+                            listOf(
+                                MaterialTheme.colorScheme.error,
+                                MaterialTheme.colorScheme.onError
+                            )
+                        }
+
+                    )
+                )
+                .background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(15.dp)
+                )
+        ) {
+            Row(
+                Modifier.padding(end = 2.dp, start = 2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                ) {
+                TextField(
+
+                    value = textValue,
+                    onValueChange = {
+                        textValue = it
+                        onTextChanged(it)
+                    },
+                    placeholder = {
+                        Text(
+                            text = hint,
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                    },
+                    modifier = Modifier.weight(1f),
+                    textStyle = MaterialTheme.typography.titleSmall,
+                    singleLine = true,
+
+                    colors = TextFieldDefaults.textFieldColors(
+                        unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                        focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                        containerColor = Color.Transparent,
+                        disabledTextColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent,
+                        cursorColor = Color.Gray
+                    ),
+
+
+
+                    trailingIcon = {
+
+                        Icon(
+                            painter = painterResource(icon),
+                            contentDescription = "Visibility password",
+                            Modifier.size(23.dp)
+                        )
+
+                    }
+                )
+            }
+        }
+
+        if(!errorStatus){
+            Text(
+                text = "Необходимо заполнить поле",
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onPrimary,
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TextFieldSingUpPassword(
+    title: String,
+    hint: String,
+    onTextChanged: (String) -> Unit,
+    errorStatus: Boolean = false,
+    errorStatusIdentity:Boolean = false
+) {
+
+
     var textValue by rememberSaveable {
         mutableStateOf("")
     }
@@ -46,12 +154,12 @@ fun TextFieldSingUp(
         mutableStateOf(false)
     }
 
-    Column(Modifier.padding(top=3.dp, bottom = 3.dp)) {
+    Column(Modifier.padding(top = 3.dp, bottom = 3.dp)) {
         Text(
             text = title,
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier.padding(top=3.dp, bottom = 3.dp)
+            modifier = Modifier.padding(top = 3.dp, bottom = 3.dp)
 
         )
 
@@ -61,7 +169,7 @@ fun TextFieldSingUp(
                     width = if (textValue.isNotEmpty()) 1.dp else 1.dp,
                     shape = RoundedCornerShape(15.dp),
                     brush = Brush.horizontalGradient(
-                        if (!errorStatus) {
+                        if (errorStatus) {
                             listOf(
                                 MaterialTheme.colorScheme.onBackground,
                                 MaterialTheme.colorScheme.onSurface
@@ -99,7 +207,8 @@ fun TextFieldSingUp(
                         Text(
                             text = hint,
                             style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.onPrimary)
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
                     },
                     modifier = Modifier.weight(1f),
                     textStyle = MaterialTheme.typography.titleSmall,
@@ -115,36 +224,48 @@ fun TextFieldSingUp(
                         disabledIndicatorColor = Color.Transparent,
                         cursorColor = Color.Gray
                     ),
+                    visualTransformation =
+                    if (passwordVisibility) {
+                        VisualTransformation.None
+                    } else {
+                        PasswordVisualTransformation()
+                    },
 
                     trailingIcon = {
-                        if (!isPassword) {
+                        IconButton(
+                            onClick = {
+                                passwordVisibility = !passwordVisibility
+                            }) {
                             Icon(
-                                painter = painterResource(icon),
+                                painter = if (passwordVisibility) {
+                                    painterResource(id = R.drawable.icon_sing_up_eye)
+                                } else {
+                                    painterResource(id = R.drawable.icon_sing_up_hide)
+                                },
                                 contentDescription = "Visibility password",
-                                Modifier.size(23.dp)
+                                Modifier.size(20.dp)
                             )
-                        } else {
-                            IconButton(
-                                onClick = {
-                                    passwordVisibility = !passwordVisibility
-                                }) {
-                                Icon(
-                                    painter = if (passwordVisibility == true) {
-                                        painterResource(id = R.drawable.icon_sing_up_hide)
-                                    } else {
-                                        painterResource(id = R.drawable.icon_sing_up_eye)
-                                    },
-                                    contentDescription = "Visibility password",
-                                    Modifier.size(20.dp)
-                                )
 
-                            }
                         }
-
-
                     }
                 )
             }
+        }
+        if(!errorStatus){
+            Text(
+                text = "Больше 6 символов",
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.padding(2.dp)
+            )
+        }
+        if(!errorStatusIdentity){
+            Text(
+                text = "Пароли должны совпадать",
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onError,
+                modifier =Modifier.padding(2.dp)
+                )
         }
     }
 }

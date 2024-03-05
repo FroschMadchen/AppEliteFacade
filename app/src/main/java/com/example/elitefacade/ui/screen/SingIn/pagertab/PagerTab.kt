@@ -17,6 +17,7 @@ import com.google.accompanist.pager.PagerState
  *
  * @sample com.google.accompanist.sample.pager.PagerWithTabs
  */
+
 @ExperimentalPagerApi
 fun Modifier.pagerTabIndicatorOffset(
     pagerState: PagerState,
@@ -61,3 +62,4 @@ fun Modifier.pagerTabIndicatorOffset(
             )
         }
     }}
+

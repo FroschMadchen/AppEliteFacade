@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,13 +25,14 @@ fun EditProjectView() {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primary,shape = RoundedCornerShape(15.dp)),
+                .padding(end=10.dp, start = 10.dp)
+                .background(MaterialTheme.colorScheme.primary,shape = RoundedCornerShape(10.dp)),
             contentAlignment = Alignment.Center
         ){
             Icon(
                 painter = painterResource(id = R.drawable.icon_add),
                 contentDescription = "",
-                modifier = Modifier
+                modifier = Modifier.padding(5.dp).size(25.dp)
             )
         }
 

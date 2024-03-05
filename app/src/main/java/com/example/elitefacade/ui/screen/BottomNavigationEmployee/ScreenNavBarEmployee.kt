@@ -1,5 +1,6 @@
 package com.example.elitefacade.ui.screen.BottomNavigationEmployee
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -45,20 +46,20 @@ fun ScreenNavBarEmployee(navControllerMain: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(modifier = Modifier.fillMaxWidth(),
-                // Указываем выравнивание всей TopAppBar по правому краю
-
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent
                 ),
                 title = { },
                 actions = {
                     IconButton(onClick = {
-                        navControllerMain.navigateUp()
                         AppSession.emailSession = ""
                         AppSession.jobTitleSession = ""
                         AppSession.userNameSession = ""
                         AppSession.passwordSession = ""
-                        AppSession.keyUserSession = ""
+                        AppSession.keyUserSession= ""
+                        navControllerMain.navigateUp()
+                        Log.i("ScreenNavBarEmployee","userName:${AppSession.userNameSession} -password: ${AppSession.passwordSession}  ")
+
                     }) {
 
                         Image(
@@ -69,7 +70,6 @@ fun ScreenNavBarEmployee(navControllerMain: NavController) {
                             )
                     }
                 }
-
             )
         },
         bottomBar = { BottomBarEmployee(navControllerBarEmployee) }
@@ -155,8 +155,6 @@ fun BottomBarEmployee(navControllerBarEmployee: NavController) {
                 },
                 unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
                 selectedContentColor = backgroundBtn
-
-
             )
         }
     }

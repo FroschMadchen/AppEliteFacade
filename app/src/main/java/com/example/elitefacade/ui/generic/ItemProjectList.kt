@@ -52,7 +52,7 @@ fun ItemProjectList(nameCompany: String, nameManager: String) {
                     )
                     Text(text = stringResource(id = R.string.edit_project_status_project_state),
                         style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurface)
+                        color = MaterialTheme.colorScheme.secondary)
                 }
 
 

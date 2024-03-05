@@ -6,12 +6,15 @@ data class RegistrationUIState(
     var jobTitle  :String = "",
     var email  :String = "",
     var password  :String = "",
- //   var privacyPolicyAccepted :Boolean = false,
+    var position: String ="",
 
 
-    var userNameError :Boolean = false,
-    var jobTitleError : Boolean = false,
-    var emailError :Boolean = false,
-    var passwordError : Boolean = false,
-   // var privacyPolicyError:Boolean = false
+
+    var userNameValidate :Boolean = false,
+    var jobTitleValidate : Boolean = false,
+    var emailValidate :Boolean = false,
+    var passwordValidate : Boolean = false,
+    var positionValidate : Boolean = false
+    ,
+    var buttonRegisteration:Boolean = false
 )

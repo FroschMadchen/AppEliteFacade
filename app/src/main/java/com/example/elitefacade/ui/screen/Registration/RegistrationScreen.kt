@@ -1,5 +1,7 @@
 package com.example.elitefacade.ui.screen.Registration
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,6 +25,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,9 +45,12 @@ import com.example.elitefacade.presentation.theme.backgroundBtn
 import com.example.elitefacade.presentation.theme.gradient0
 import com.example.elitefacade.ui.generic.ButtonComponent
 import com.example.elitefacade.ui.generic.TextFieldSingUp
+import com.example.elitefacade.ui.generic.TextFieldSingUpPassword
 import com.example.elitefacade.ui.screen.SingIn.LoginVM.LoginUIEvent
 import com.example.elitefacade.ui.screen.SingIn.LoginVM.LoginViewModel
 import com.example.elitefacade.ui.screen.Screen
+import com.example.elitefacade.ui.screen.SingIn.showToast
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,60 +76,87 @@ fun RegistrationScreen(
         )
     }) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
+            val password1: MutableState<String> =
+                remember {
+                    mutableStateOf("")
+                }
+            val password2: MutableState<String> =
+                remember {
+                    mutableStateOf("")
+                }
+            val context = LocalContext.current
             Box(Modifier.padding(start = 16.dp, end = 16.dp)) {
-                Column {
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState()) // Добавляем прокрутку по вертикали
+                        .padding(bottom = 16.dp)
+                ) {
                     Text(
                         text = stringResource(id = R.string.sign_up),
                         Modifier
-                            .padding(10.dp),
+                            .padding(top = 10.dp, bottom = 10.dp),
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                     TextFieldSingUp(
                         title = stringResource(id = R.string.sign_up_user_name),
                         hint = stringResource(id = R.string.sign_up_user_name_hint),
-                        icon = R.drawable.icon_project_manager, false,
+                        icon = R.drawable.icon_project_manager,
                         onTextChanged = {
                             signUpViewModel.onEvent(SignUpUIEvent.UserNameChanged(it))
                         },
-                        errorStatus = signUpViewModel.registrationUIState.value.userNameError
+                        errorStatus = signUpViewModel.registrationUIState.value.userNameValidate
                     )
 
-                    val position = TwoExclusiveCheckBoxes()
+                    TwoExclusiveCheckBoxes(onTextChanged = {
+                        signUpViewModel.onEvent(SignUpUIEvent.positionChanged(it))
+                    }, errorStatus = signUpViewModel.registrationUIState.value.positionValidate)
+
 
                     TextFieldSingUp(
                         title = stringResource(id = R.string.sing_up_job_header),
                         hint = stringResource(id = R.string.sing_up_job_hint),
-                        icon = R.drawable.icon_project_manager, false,
+                        icon = R.drawable.icon_project_manager,
                         onTextChanged = {
                             signUpViewModel.onEvent(SignUpUIEvent.jobTitleChanged(it))
                         },
-                        errorStatus = signUpViewModel.registrationUIState.value.jobTitleError
+                        errorStatus = signUpViewModel.registrationUIState.value.jobTitleValidate
                     )
                     TextFieldSingUp(
                         title = stringResource(id = R.string.sing_up_email_header),
                         hint = stringResource(id = R.string.sing_up_email_hint),
-                        icon = R.drawable.icon_sing_up_email, false,
+                        icon = R.drawable.icon_sing_up_email,
                         onTextChanged = {
                             signUpViewModel.onEvent(SignUpUIEvent.EmailChanged(it))
                         },
-                        errorStatus = signUpViewModel.registrationUIState.value.emailError
+                        errorStatus = signUpViewModel.registrationUIState.value.emailValidate
 
                     )
-                    TextFieldSingUp(
+                    TextFieldSingUpPassword(
                         title = stringResource(id = R.string.sing_up_password_header),
                         hint = stringResource(id = R.string.sing_up_password_hint),
-                        icon = R.drawable.icon_project_manager, true,
                         onTextChanged = {
-                            signUpViewModel.onEvent(SignUpUIEvent.PasswordChanged(it))
+                            password2.value = it
                         },
-                        errorStatus = signUpViewModel.registrationUIState.value.passwordError
+                        errorStatus = true,
+                        errorStatusIdentity = true
                     )
-                    /*  TextFieldSingUp(
-                          title = stringResource(id = R.string.sing_up_password2_header),
-                          hint = stringResource(id = R.string.sing_up_password2_hint),
-                          icon = R.drawable.icon_project_manager, true
-                      )*/
+                    TextFieldSingUpPassword(
+                        title = stringResource(id = R.string.sing_up_password2_header),
+                        hint = stringResource(id = R.string.sing_up_password2_hint),
+                        onTextChanged = {
+                            password1.value = it
+                            if (it == password2.value) {
+                                signUpViewModel.onEvent(SignUpUIEvent.PasswordChanged(it))
+                                Log.i("RegistrationScreen", "$it  -- ${password2.value}")
+                            } else {
+                                Log.i("RegistrationScreen", "$it  -- ${password2.value}")
+                            }
+                        }, errorStatus = signUpViewModel.registrationUIState.value.passwordValidate,
+                        errorStatusIdentity = (password1.value == password2.value)
+
+
+                    )
 
                     ButtonComponent(
                         value = stringResource(id = R.string.farther),
@@ -128,6 +164,7 @@ fun RegistrationScreen(
                             signUpViewModel.onEvent(SignUpUIEvent.RegisterButtonClicked)
                             navController.navigate(Screen.NavBarEmployee.route)
                         },
+                        onUnavailable = signUpViewModel.registrationUIState.value.buttonRegisteration,
                     )
                 }
             }
@@ -136,68 +173,98 @@ fun RegistrationScreen(
 }
 
 @Composable
-fun TwoExclusiveCheckBoxes():String{
+fun TwoExclusiveCheckBoxes(onTextChanged: (String) -> Unit, errorStatus: Boolean = false) {
     var isChecked1 by remember { mutableStateOf(false) }
     var isChecked2 by remember { mutableStateOf(false) }
+
 
     val textEmployee = stringResource(id = R.string.employee)
     val textClient = stringResource(id = R.string.client)
 
     var selectedText by remember { mutableStateOf("") }
+    onTextChanged(selectedText)
+    Column {
 
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 5.dp, bottom = 5.dp)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, bottom = 5.dp)
 
-    ) {
-        Row( modifier = Modifier.weight(1f)) {
-            Checkbox(
-                checked = isChecked1,
-                onCheckedChange = {
-                    isChecked1 = it
-                    if (isChecked1) {
-                        selectedText = textEmployee
-                    }
-                },
-                colors = CheckboxDefaults.colors(
-                    uncheckedColor = gradient0,
-                    checkedColor = backgroundBtn,
-                    checkmarkColor = MaterialTheme.colorScheme.onPrimary
+        ) {
+            Row(modifier = Modifier.weight(1f)) {
+                Checkbox(
+                    checked = isChecked1,
+                    onCheckedChange = {
+                        isChecked1 = it
+
+                        if (isChecked1) {
+                            selectedText = textEmployee
+                        }
+
+                        if (!isChecked1) {
+                            isChecked2 =
+                                true // Если другой чекбокс не выбран, установите его состояние как true
+                        }
+                    },
+                    colors = CheckboxDefaults.colors(
+                        uncheckedColor = gradient0,
+                        checkedColor = backgroundBtn,
+                        checkmarkColor = MaterialTheme.colorScheme.onPrimary
+                    )
                 )
-            )
-            Text(
-                text = textEmployee,
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.align(Alignment.CenterVertically)
-            )
+                Text(
+                    text = textEmployee,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
+
+            }
+
+            // Spacer(modifier = Modifier.height(16.dp))
+            Row(modifier = Modifier.weight(1f)) {
+                Checkbox(
+                    checked = isChecked2,
+                    onCheckedChange = {
+                        isChecked2 = it
+
+                        if (!isChecked2) {
+                            isChecked1 =
+                                true // Если другой чекбокс не выбран, установите его состояние как true
+                        }
+
+                        if (isChecked2) {
+
+                            selectedText = textClient
+
+                        }
+                    },
+                    colors = CheckboxDefaults.colors(
+                        uncheckedColor = gradient0,
+                        checkedColor = backgroundBtn,
+                        checkmarkColor = MaterialTheme.colorScheme.onPrimary
+                    ),
+
+                    )
+                Text(
+                    text = textClient,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
+            }
+
 
         }
-
-        // Spacer(modifier = Modifier.height(16.dp))
-        Row( modifier = Modifier.weight(1f)) {
-            Checkbox(
-                checked = isChecked2,
-                onCheckedChange = { isChecked2 = it
-                    if (isChecked1) {
-                        selectedText = textClient
-                    }},
-                colors = CheckboxDefaults.colors(
-                    uncheckedColor = gradient0,
-                    checkedColor = backgroundBtn,
-                    checkmarkColor = MaterialTheme.colorScheme.onPrimary
-                ),
-
-                )
+        if (!errorStatus) {
             Text(
-                text = textClient,
+                text = "Необходимо выбрать одну позицию",
                 style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.align(Alignment.CenterVertically)
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
+
 
     }
 
@@ -208,15 +275,10 @@ fun TwoExclusiveCheckBoxes():String{
     LaunchedEffect(isChecked2) {
         if (isChecked2) isChecked1 = false
     }
-    return selectedText
+
 }
 
 
-@Preview
-@Composable
-fun PreviewTwoExclusiveCheckBoxes() {
-    TwoExclusiveCheckBoxes()
-}
 /*   Text(
                         text = "Для потверждения регистрации введите emil",
                         Modifier.padding(4.dp),

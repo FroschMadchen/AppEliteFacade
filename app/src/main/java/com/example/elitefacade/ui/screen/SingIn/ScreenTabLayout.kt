@@ -1,12 +1,14 @@
 package com.example.elitefacade.ui.screen.SingIn
 
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
@@ -22,18 +24,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.elitefacade.R
+import com.example.elitefacade.ui.screen.SingIn.LoginVM.LoginViewModel
 import com.example.elitefacade.ui.screen.SingIn.pagertab.pagerTabIndicatorOffset
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun ScreenTabLayout(navController: NavController) {
+fun ScreenTabLayout(
+    navController: NavController,
+) {
     val tabList =
         listOf(stringResource(id = R.string.client), stringResource(id = R.string.employee))
     val pagerState = rememberPagerState()
@@ -60,27 +67,27 @@ fun ScreenTabLayout(navController: NavController) {
             )
 
             TabRow(
-                selectedTabIndex = tabIndex,
+                selectedTabIndex =  pagerState.currentPage,
                 indicator = { tabPositions ->
                     TabRowDefaults.Indicator(
                         Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
-                        //color = MaterialTheme.colorScheme.onPrimary
                     )
 
                 },
                 contentColor = MaterialTheme.colorScheme.onPrimary,//MaterialTheme.colorScheme.onPrimary,
                 containerColor = Color.Transparent
             ) {
-                tabList.forEachIndexed { index, s ->
+                tabList.forEachIndexed { index, title ->
                     Tab(
-                        selected = false,
+                        selected = index == pagerState.currentPage, // false
                         onClick = {
                             coroutineScope.launch {
                                 pagerState.animateScrollToPage(index)
+                               // onPageSelected(index)
                             }
                         },
                         text = {
-                            Text(text = s)
+                            Text(text = title)
                         })
                 }
             }
@@ -88,7 +95,7 @@ fun ScreenTabLayout(navController: NavController) {
                 count = tabList.size,
                 state = pagerState
             ) { index ->
-                val list = when (index) {
+               when (index) {
                     0 -> ViewSingInClient(navController)
                     1 -> ViewSignInEmployee(navController)
                     else -> ViewSingInClient(navController)

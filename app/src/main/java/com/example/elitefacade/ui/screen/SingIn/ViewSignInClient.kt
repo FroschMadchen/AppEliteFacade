@@ -66,8 +66,8 @@ fun ViewSingInClient(navController: NavController) {
             color = MaterialTheme.colorScheme.onPrimary,
             textAlign = TextAlign.Center
         )
-        TextFieldView(stringResource(id = R.string.name), onTextChanged = { TODO() })
-        TextFieldView(stringResource(id = R.string.id_order),onTextChanged = { TODO() })
+        TextFieldView(stringResource(id = R.string.name), onTextChanged = { TODO() },errorStatus = false)
+        TextFieldView(stringResource(id = R.string.id_order),onTextChanged = { TODO() },errorStatus = false)
 
         AdditionalFunSingIn()
 
@@ -75,6 +75,7 @@ fun ViewSingInClient(navController: NavController) {
             onClick = {
                 navController.navigate(Screen.NavBarClient.route)
             },
+
             colors = ButtonDefaults.buttonColors(
                 contentColor = MaterialTheme.colorScheme.onSecondary,
                 containerColor = MaterialTheme.colorScheme.onSecondary
@@ -96,13 +97,13 @@ fun ViewSingInClient(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldView(hint: String, onTextChanged: (String) -> Unit) {
+fun TextFieldView(hint: String, onTextChanged: (String) -> Unit,errorStatus:Boolean) {
     var textValue by remember { mutableStateOf("") }
 
     TextField(
 
         modifier = Modifier
-            .padding(10.dp)
+            .padding(top=10.dp, start = 10.dp,end=10.dp)
             .fillMaxWidth()
             .border(
                 width = 5.dp,
@@ -139,6 +140,15 @@ fun TextFieldView(hint: String, onTextChanged: (String) -> Unit) {
             unfocusedContainerColor = Color.White
         )
     )
+
+    if(!errorStatus){
+        Text(
+            text = "Поле должно иметь не менее 6 символов",
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier.padding(2.dp)
+        )
+    }
 }
 
 

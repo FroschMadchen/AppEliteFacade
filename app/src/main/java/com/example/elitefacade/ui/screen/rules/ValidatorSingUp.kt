@@ -4,8 +4,11 @@ object ValidatorSingUp {
 
     fun validateNameUser(userName: String): ValidationResult {
         return ValidationResult(
-            (userName.isNotEmpty() && userName.length >= 10)
+            (userName.isNotEmpty() && userName.length >= 6)
         )
+    }
+    fun validatePosition(position:String):ValidationResult{
+        return ValidationResult(position.isNotEmpty())
     }
 
     fun validateJobTitle(userJobTitle: String): ValidationResult {

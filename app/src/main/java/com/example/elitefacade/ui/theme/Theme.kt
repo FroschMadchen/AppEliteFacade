@@ -24,7 +24,10 @@ private val DarkColorScheme = darkColorScheme(
     onBackground = ThemeColors.Night.gradient1,
     onSurface = ThemeColors.Night.gradient0,
     error = ThemeColors.Night.error0,
-    onError = ThemeColors.Night.error1
+    onError = ThemeColors.Night.error1,
+    surfaceVariant = ThemeColors.Night.surfaceText,
+    secondary=ThemeColors.Night.status
+
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -36,7 +39,9 @@ private val LightColorScheme = lightColorScheme(
     onBackground = ThemeColors.Day.gradient1,
     onSurface = ThemeColors.Day.gradient0,
     error = ThemeColors.Day.error0,
-    onError = ThemeColors.Day.error1
+    onError = ThemeColors.Day.error1,
+    surfaceVariant = ThemeColors.Day.surfaceText,
+    secondary=ThemeColors.Day.status
 
 
     /* Other default colors to override

@@ -1,6 +1,7 @@
 package com.example.elitefacade.ui.screen.SingIn.LoginVM
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.elitefacade.model.entity.AuthResult
@@ -26,7 +27,7 @@ class LoginViewModel : ViewModel() {
     private val _resultChannel = Channel<AuthResult>()
     val authResult = _resultChannel.receiveAsFlow()
 
-    //   private var allValidationsPassed = mutableStateOf(false)
+    private var allValidationsPassed = mutableStateOf(false)
 
     fun onEvent(event: LoginUIEvent) {
         when (event) {
@@ -43,15 +44,21 @@ class LoginViewModel : ViewModel() {
             }
 
             is LoginUIEvent.LoginButtonClicked -> {
-                login()
-                Log.i(TAG, "кнопка нажата  ")
+                if(allValidationsPassed.value){
+                    login()
+                    Log.i(TAG, "успешная проверка на корректность вводимых данных ")
+                }
+
+
             }
+
+            else -> {}
         }
-        //  validateLoginUIDataWithRules()
+        validateLoginUIDataWithRules()
     }
 
     private fun validateLoginUIDataWithRules() {
-        val emailResult = ValidatorSingUp.validateNameUser(
+        val userNameResult = ValidatorSingUp.validateNameUser(
             userName = _loginUiState.value.userName
         )
 
@@ -60,11 +67,13 @@ class LoginViewModel : ViewModel() {
         )
 
         _loginUiState.value = _loginUiState.value.copy(
-            userNameError = emailResult.status,
+            userNameError = userNameResult.status,
             passwordError = passwordResult.status
         )
 
-        //    allValidationsPassed.value = emailResult.status && passwordResult.status
+        allValidationsPassed.value = userNameResult.status && passwordResult.status
+        _loginUiState.value.onUnavailable= allValidationsPassed.value
+        Log.i(TAG,"${userNameResult.status} - ${passwordResult.status}")
 
     }
 
@@ -92,6 +101,7 @@ class LoginViewModel : ViewModel() {
                         AppSession.userNameSession = userData.userName
                         AppSession.emailSession = userData.email
                         AppSession.jobTitleSession = userData.jobTitle
+                        AppSession.keyUserSession = userData.key
                         Log.i(TAG, "Успешный вход пользователя: $userName")
                         return
                     }

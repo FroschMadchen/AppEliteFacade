@@ -24,13 +24,15 @@ val Pink40 = Color(0xFF7D5260)
     sealed class ThemeColors(
         val background:Color,
         val surface:Color,
+        val surfaceText:Color,
         val primary:Color,
         val text:Color,
         val textTitle:Color,
         val gradient1:Color,
         val gradient0: Color,
         val error0:Color,
-        val error1:Color
+        val error1:Color,
+        val status:Color,
     ){
         object Day: ThemeColors(
             background = Color(0xAEEBEAEC),
@@ -41,7 +43,9 @@ val Pink40 = Color(0xFF7D5260)
             gradient1 = Color(0xADF98727),
             gradient0 = Color(0x88072A64),
             error1 = Color(0xFFC52424),
-            error0 = Color(0xFFFAB6B6)
+            error0 = Color(0xFFFAB6B6),
+            surfaceText = Color(0xFFFFFFFF),
+            status =Color(0xFF42D10D)
         )
         object Night: ThemeColors(
             background =  Color(0xE9072A64),
@@ -52,7 +56,9 @@ val Pink40 = Color(0xFF7D5260)
             gradient1 = Color(0xADF98727),
             gradient0 = Color(0x88072A64),
             error1 = Color(0xFFC52424),
-            error0 = Color(0xFFFAB6B6)
+            error0 = Color(0xFFFAB6B6),
+            surfaceText = Color(0xFFFFFFFF),
+            status =Color(0xFF42D10D)
         )
     }
 

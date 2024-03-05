@@ -8,6 +8,11 @@ sealed class BottomNavItemEmployee(
     val label:String,
     val badgeCount:Int? = null
 ) {
+    object Profile: BottomNavItemEmployee(
+        route = "Profile",
+        iconResId = R.drawable.icon_project_manager,
+        label = "Профиль"
+    )
     object ViewingProjects: BottomNavItemEmployee(
         route = "ViewingProjects",
         iconResId = R.drawable.icon_project,
@@ -24,11 +29,7 @@ sealed class BottomNavItemEmployee(
         label= "Чат",
         badgeCount = 56
     )
-    object Profile: BottomNavItemEmployee(
-        route = "Profile",
-        iconResId = R.drawable.icon_project_manager,
-        label = "Профиль"
-    )
+
 
     companion object {
         val allItems: List<BottomNavItemEmployee> by lazy {

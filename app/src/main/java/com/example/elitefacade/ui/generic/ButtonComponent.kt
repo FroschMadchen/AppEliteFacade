@@ -15,12 +15,13 @@ import androidx.compose.ui.unit.dp
 import com.example.elitefacade.R
 
 @Composable
-fun ButtonComponent(value:String, onButtonClicked: () -> Unit) {
+fun ButtonComponent(value:String, onButtonClicked: () -> Unit,  onUnavailable:Boolean) {
     Button(
         onClick = {
             onButtonClicked.invoke()
 
         },
+        enabled= onUnavailable,
         colors = ButtonDefaults.buttonColors(
             contentColor = MaterialTheme.colorScheme.onSecondary,
             containerColor = MaterialTheme.colorScheme.onSecondary

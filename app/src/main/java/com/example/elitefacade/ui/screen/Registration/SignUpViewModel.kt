@@ -51,9 +51,18 @@ class SignUpViewModel : ViewModel() {
                 printState()
             }
 
+            is SignUpUIEvent.positionChanged -> {
+                registrationUIState.value = registrationUIState.value.copy(
+                    position = event.position
+                )
+                printState()
+            }
+
             is SignUpUIEvent.RegisterButtonClicked -> {
                 signUp()
             }
+
+            else -> {}
         }
         validateDataWithRules()
     }
@@ -61,12 +70,16 @@ class SignUpViewModel : ViewModel() {
     private fun signUp() {
         Log.d(TAG, "Inside_signUp")
         printState()
-        createUserInFirebase(
-            email = registrationUIState.value.email,
-            password = registrationUIState.value.password,
-            jobTitle = registrationUIState.value.jobTitle,
-            userName = registrationUIState.value.userName
-        )
+            if(allValidationsPassed.value){
+                createUserInFirebase(
+                    email = registrationUIState.value.email,
+                    password = registrationUIState.value.password,
+                    jobTitle = registrationUIState.value.jobTitle,
+                    userName = registrationUIState.value.userName,
+                    position = registrationUIState.value.position
+                )
+            }
+
     }
 
     private fun validateDataWithRules() {
@@ -85,28 +98,32 @@ class SignUpViewModel : ViewModel() {
         val passwordResult = ValidatorSingUp.validatePassword(
             password = registrationUIState.value.password
         )
+        val positionResult = ValidatorSingUp.validatePosition(
+            position = registrationUIState.value.position
+        )
 
         Log.d(TAG, "Inside_validateDataWithRules")
         Log.d(TAG, "fNameResult= $userName")
         Log.d(TAG, "lNameResult= $jobTitle")
         Log.d(TAG, "emailResult= $emailResult")
         Log.d(TAG, "passwordResult= $passwordResult")
+        Log.d(TAG, "positionResult= $positionResult")
 
 
         registrationUIState.value = registrationUIState.value.copy(
-            userNameError = userName.status,
-            jobTitleError = jobTitle.status,
-            emailError = emailResult.status,
-            passwordError = passwordResult.status,
-            //  privacyPolicyError = privacyPolicyResult.status
+            userNameValidate = userName.status,
+            jobTitleValidate = jobTitle.status,
+            emailValidate = emailResult.status,
+            passwordValidate = passwordResult.status,
+            positionValidate = positionResult.status
         )
 
 
         allValidationsPassed.value = userName.status && jobTitle.status &&
-                emailResult.status && passwordResult.status
+                emailResult.status && passwordResult.status && positionResult.status
+        registrationUIState.value.buttonRegisteration =  allValidationsPassed.value
 
     }
-
 
     private fun printState() {
         Log.d(TAG, "Inside_printState")
@@ -118,27 +135,24 @@ class SignUpViewModel : ViewModel() {
         email: String,
         password: String,
         jobTitle: String,
-        userName: String
+        userName: String,
+        position: String
     ) {
-          signUpInProgress.value = true
-
-        val position = "сотрудник"
-        val num = 1619
-        val key = num.toString()
+        signUpInProgress.value = true
+        val key = createKey()
         val userData = hashMapOf(
             "data" to createCaption(),
             "email" to email,
             "idCreator" to AppSession.keyUserSession,
             "jobTitle" to jobTitle,
-            "key" to createKey(),
+            "key" to key,
             "userName" to userName,
             "password" to password,
             "position" to position
-
         )
 
-        // Сохраняем данные пользователя в Firestore
-        // Сохраняем данные пользователя в Realtime Database
+        Log.i(TAG, "signUpInProgress")
+
         FirebaseDatabase.getInstance().getReference("user_employee")
             .child(key)//.child(uid)
             .setValue(userData)
@@ -159,9 +173,3 @@ private fun createCaption(): String =
 
 private fun createKey(): String = Random.nextInt(0, 9999).toString()
 
-
-/*context.showToast("Не выбран маркер B", Toast.LENGTH_LONG)
-
-fun Context.showToast(message: String, length: Int = Toast.LENGTH_LONG) {
-    Toast.makeText(this, message, length).show()
-}*/
