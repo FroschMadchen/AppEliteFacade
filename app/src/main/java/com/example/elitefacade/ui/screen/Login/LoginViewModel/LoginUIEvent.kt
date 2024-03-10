@@ -1,4 +1,4 @@
-package com.example.elitefacade.ui.screen.SingIn.LoginVM
+package com.example.elitefacade.ui.screen.Login.LoginViewModel
 
 sealed class LoginUIEvent{
 

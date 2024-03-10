@@ -1,4 +1,4 @@
-package com.example.elitefacade.ui.screen.Registration
+package com.example.elitefacade.ui.screen.Registration.PegistrationViewModel
 
 sealed class SignUpUIEvent{
 

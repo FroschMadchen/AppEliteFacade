@@ -1,7 +1,7 @@
-package com.example.elitefacade.ui.screen.Registration
+package com.example.elitefacade.ui.screen.Registration.PegistrationViewModel
 
 
-data class RegistrationUIState(
+data class SingUpUIState(
     var userName :String = "",
     var jobTitle  :String = "",
     var email  :String = "",

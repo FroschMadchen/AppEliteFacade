@@ -42,6 +42,8 @@ import com.example.elitefacade.presentation.theme.gradient0
 import com.example.elitefacade.ui.generic.ButtonComponent
 import com.example.elitefacade.ui.generic.TextFieldSingUp
 import com.example.elitefacade.ui.generic.TextFieldSingUpPassword
+import com.example.elitefacade.ui.screen.Registration.PegistrationViewModel.SignUpUIEvent
+import com.example.elitefacade.ui.screen.Registration.PegistrationViewModel.SignUpViewModel
 import com.example.elitefacade.ui.screen.Screen
 import com.example.elitefacade.ui.utils.isValidLength
 
@@ -161,10 +163,11 @@ fun RegistrationScreen(
                         },
                         onUnavailable = state.let {
                             it.email.isNotEmpty() &&
-                            it.password.isValidLength(6) &&
-                            it.userName.isValidLength(6) &&
-                            it.jobTitle.isValidLength(4) &&
-                            it.position.isNotEmpty() },
+                                    it.password.isValidLength(6) &&
+                                    it.userName.isValidLength(6) &&
+                                    it.jobTitle.isValidLength(4) &&
+                                    it.position.isNotEmpty()
+                        },
                     )
                 }
             }
@@ -264,6 +267,15 @@ fun TwoExclusiveCheckBoxes(onTextChanged: (String) -> Unit, errorStatus: Boolean
                 color = MaterialTheme.colorScheme.onPrimary
             )
         }
+        Text(
+            text = "Важно! При регистрации заказчика его пароль это id проекта!",
+            style = MaterialTheme.typography.titleSmall,
+            color = if (!isChecked2) {
+                MaterialTheme.colorScheme.onPrimary
+            } else {
+                MaterialTheme.colorScheme.onError
+            }
+        )
 
 
     }

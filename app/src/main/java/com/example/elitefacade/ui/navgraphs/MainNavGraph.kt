@@ -6,11 +6,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.elitefacade.ui.screen.BottomNavigationEmployee.ScreenNavBarEmployee
 import com.example.elitefacade.ui.screen.BottomNavigtionClient.ScreenNavBarClient
-import com.example.elitefacade.ui.screen.Registration.RegistrationGetCode
-import com.example.elitefacade.ui.screen.Registration.RegistrationGetCodeScreen
 import com.example.elitefacade.ui.screen.Registration.RegistrationScreen
 import com.example.elitefacade.ui.screen.Screen
-import com.example.elitefacade.ui.screen.SingIn.ScreenTabLayout
+import com.example.elitefacade.ui.screen.Login.ScreenTabLayout
 import com.example.elitefacade.ui.screen.SplashScreen.SplashScreen
 
 @Composable

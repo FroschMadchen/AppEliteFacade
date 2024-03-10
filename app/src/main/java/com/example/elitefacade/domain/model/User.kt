@@ -1,4 +1,4 @@
-package com.example.elitefacade.ui.screen.SingIn.LoginVM
+package com.example.elitefacade.domain.model
 
 data class User(
     val data: String = "",

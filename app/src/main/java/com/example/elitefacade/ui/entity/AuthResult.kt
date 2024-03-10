@@ -1,4 +1,4 @@
-package com.example.elitefacade.model.entity
+package com.example.elitefacade.ui.entity
 
 sealed class AuthResult {
     object Authorized : AuthResult()

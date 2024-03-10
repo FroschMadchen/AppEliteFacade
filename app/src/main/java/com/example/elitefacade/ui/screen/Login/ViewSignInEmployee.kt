@@ -1,4 +1,4 @@
-package com.example.elitefacade.ui.screen.SingIn
+package com.example.elitefacade.ui.screen.Login
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -27,13 +27,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.elitefacade.R
-import com.example.elitefacade.model.entity.AuthResult
+import com.example.elitefacade.ui.entity.AuthResult
+import com.example.elitefacade.ui.generic.TextFieldView
 import com.example.elitefacade.ui.screen.Screen
-import com.example.elitefacade.ui.screen.SingIn.LoginVM.LoginUIEvent
-import com.example.elitefacade.ui.screen.SingIn.LoginVM.LoginViewModel
+import com.example.elitefacade.ui.screen.Login.LoginViewModel.LoginUIEvent
+import com.example.elitefacade.ui.screen.Login.LoginViewModel.LoginViewModel
+import com.example.elitefacade.ui.screen.Registration.PegistrationViewModel.EMPLOYEE
 import com.example.elitefacade.ui.utils.isValidLength
 
 
@@ -41,11 +44,12 @@ import com.example.elitefacade.ui.utils.isValidLength
 @Composable
 fun ViewSignInEmployee(
     navController: NavController,
-    loginViewModel: LoginViewModel = viewModel(),
+    loginViewModel: LoginViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     var notSuccess by remember { mutableStateOf(false) }
     val state by loginViewModel.loginUiState.collectAsState()
+
     LaunchedEffect(loginViewModel.loginUiState) {
         loginViewModel.authResult.collect { result ->
             when (result) {
@@ -56,9 +60,7 @@ fun ViewSignInEmployee(
 
                 AuthResult.Unauthorized -> {
                     notSuccess = true
-                    // context.showToast("не получилось войти ", Toast.LENGTH_LONG)
                 }
-
                 AuthResult.UnknownError -> TODO()
             }
         }
@@ -66,7 +68,7 @@ fun ViewSignInEmployee(
     Column(
         modifier = Modifier
             .background(Color.Transparent)
-            .padding(end = 16.dp, start = 16.dp),
+            .padding(end = 16.dp, start = 16.dp,top=10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -106,11 +108,19 @@ fun ViewSignInEmployee(
             },
             errorStatus = state.password.isValidLength(6)
         )
-
-        AdditionalFunSingIn()
+        if (notSuccess) {
+            Text(
+                text = "Имя или пароль введены неправильно",
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onError,
+                modifier = Modifier.padding(2.dp)
+            )
+        }
 
         Button(
-            onClick = { loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked) },
+            onClick = {
+                loginViewModel.loginUiState.value.position = EMPLOYEE
+                loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked) },
             enabled = state.let {
                 it.userName.isValidLength(6) &&
                         it.password.isValidLength(6)
@@ -120,7 +130,7 @@ fun ViewSignInEmployee(
                 containerColor = MaterialTheme.colorScheme.onSecondary
             ),
             modifier = Modifier
-                .padding(top = 15.dp, end = 10.dp, start = 10.dp)
+                .padding(top = 10.dp, end = 10.dp, start = 10.dp)
                 .fillMaxWidth(),
             shape = RoundedCornerShape(15.dp)
         ) {
@@ -130,14 +140,7 @@ fun ViewSignInEmployee(
                 color = Color.White
             )
         }
-        if (notSuccess) {
-            Text(
-                text = "не удалось войти см. log ",
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.padding(2.dp)
-            )
-        }
+
 
 
         /* LaunchedEffect(loginViewModel.uiState) {

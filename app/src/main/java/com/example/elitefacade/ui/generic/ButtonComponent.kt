@@ -33,7 +33,7 @@ fun ButtonComponent(value:String, onButtonClicked: () -> Unit,  onUnavailable:Bo
 
     ) {
         Text(
-            stringResource(id = R.string.farther),
+             value,
             style = (MaterialTheme.typography.bodyLarge),
             color = Color.White
         )

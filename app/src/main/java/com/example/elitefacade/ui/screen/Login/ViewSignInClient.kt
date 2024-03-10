@@ -1,49 +1,78 @@
-package com.example.elitefacade.ui.screen.SingIn
+package com.example.elitefacade.ui.screen.Login
 
+import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.elitefacade.R
+import com.example.elitefacade.ui.entity.AuthResult
 import com.example.elitefacade.presentation.theme.backgroundBtn
 import com.example.elitefacade.presentation.theme.gradient0
+import com.example.elitefacade.ui.generic.ButtonComponent
+import com.example.elitefacade.ui.generic.TextFieldView
+import com.example.elitefacade.ui.screen.Login.LoginViewModel.LoginUIEvent
+import com.example.elitefacade.ui.screen.Login.LoginViewModel.LoginViewModel
+import com.example.elitefacade.ui.screen.Registration.PegistrationViewModel.CLIENT
 import com.example.elitefacade.ui.screen.Screen
+import com.example.elitefacade.ui.utils.isValidLength
 
 
 @Composable
-fun ViewSingInClient(navController: NavController) {
+fun ViewSingInClient(
+    navController: NavController,
+    loginViewModel: LoginViewModel = hiltViewModel()) {
+    val context = LocalContext.current
+    var notSuccess by remember { mutableStateOf(false) }
+    val state by loginViewModel.loginUiState.collectAsState()
+
+    LaunchedEffect(loginViewModel.loginUiState) {
+        loginViewModel.authResult.collect { result ->
+            when (result) {
+                AuthResult.Authorized -> {
+                    navController.navigate(Screen.NavBarClient.route)
+                    context.showToast("успешный вход", Toast.LENGTH_LONG)
+                }
+
+                AuthResult.Unauthorized -> {
+                    notSuccess = true
+                }
+                AuthResult.UnknownError -> TODO()
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .background(Color.Transparent)
-            .padding(end = 16.dp, start = 16.dp),
+            .padding(end = 16.dp, start = 16.dp, top = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -65,96 +94,45 @@ fun ViewSingInClient(navController: NavController) {
             color = MaterialTheme.colorScheme.onPrimary,
             textAlign = TextAlign.Center
         )
+
         TextFieldView(
             stringResource(id = R.string.name),
-            onTextChanged = { TODO() },
-            errorStatus = false)
-        TextFieldView(stringResource(id = R.string.id_order),onTextChanged = { TODO() },errorStatus = false)
-
-        AdditionalFunSingIn()
-
-        Button(
-            onClick = {
-                navController.navigate(Screen.NavBarClient.route)
-            },
-
-            colors = ButtonDefaults.buttonColors(
-                contentColor = MaterialTheme.colorScheme.onSecondary,
-                containerColor = MaterialTheme.colorScheme.onSecondary
-            ),
-            modifier = Modifier
-                .padding(top = 15.dp, end = 10.dp, start = 10.dp)
-                .fillMaxWidth(),
-            shape = RoundedCornerShape(15.dp)
-
-        ) {
+            onTextChanged = {loginViewModel.onEvent(event = LoginUIEvent.UserNameCheck(it)) },
+            errorStatus = false
+        )
+        Spacer(modifier = Modifier.padding(8.dp))
+        TextFieldView(
+            stringResource(id = R.string.id_order),
+            onTextChanged = {  loginViewModel.onEvent(event = LoginUIEvent.PasswordCheck(it)) },
+            errorStatus = false
+        )
+        if (notSuccess) {
             Text(
-                stringResource(id = R.string.farther),
-                style = (typography.bodyLarge),
-                color = Color.White
+                text = "Имя или пароль введены неправильно",
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onError,
+                modifier = Modifier.padding(2.dp)
             )
         }
-    }
-}
 
-@Composable
-fun TextFieldView(hint: String, onTextChanged: (String) -> Unit,errorStatus:Boolean) {
-    var textValue by remember { mutableStateOf("") }
+        PasswordRecoveryView()
 
-    TextField(
-
-        modifier = Modifier
-            .padding(top=10.dp, start = 10.dp,end=10.dp)
-            .fillMaxWidth()
-            .border(
-                width = 5.dp,
-                brush = Brush.horizontalGradient(
-                    listOf(
-                        MaterialTheme.colorScheme.onBackground,
-                        MaterialTheme.colorScheme.onSurface
-                    )
-                ),
-                shape = RoundedCornerShape(15.dp),
-            ),
-        value = textValue,
-        onValueChange = {
-            textValue = it
-            onTextChanged(it)
-        },
-        placeholder = {
-            Text(
-                text = hint,
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onPrimary)
-        },
-        textStyle = (typography.titleSmall),
-        shape = RoundedCornerShape(15.dp),
-
-        colors = TextFieldDefaults.colors(
-            focusedTextColor = MaterialTheme.colorScheme.onPrimary,
-            cursorColor = Color.Blue, // Настроить цвет курсора
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
-            errorIndicatorColor = Color.Red,
-            disabledContainerColor=Color.White,
-            unfocusedContainerColor = Color.White
-        )
-    )
-
-    if(!errorStatus){
-        Text(
-            text = "Поле должно иметь не менее 6 символов",
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier.padding(2.dp)
+        ButtonComponent(
+            stringResource(id = R.string.farther),
+            onButtonClicked = { loginViewModel.loginUiState.value.position = CLIENT
+                loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked) },
+            onUnavailable = state.let {
+                it.userName.isValidLength(6) &&
+                        it.password.isValidLength(6)
+            }
         )
     }
 }
 
 
+
 @Composable
-fun AdditionalFunSingIn() {
+fun PasswordRecoveryView() {
     Row(
         modifier = Modifier
             .fillMaxWidth(),

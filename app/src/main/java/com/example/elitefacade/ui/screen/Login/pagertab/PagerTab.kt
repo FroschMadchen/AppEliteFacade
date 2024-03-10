@@ -1,4 +1,4 @@
-package com.example.elitefacade.ui.screen.SingIn.pagertab
+package com.example.elitefacade.ui.screen.Login.pagertab
 
 
 import androidx.compose.material3.ScrollableTabRow
