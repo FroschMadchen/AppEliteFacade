@@ -18,6 +18,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,22 +28,25 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.elitefacade.R
 import com.example.elitefacade.presentation.theme.LightGreyBackground
 import com.example.elitefacade.ui.screen.AppSession
+import com.example.elitefacade.ui.screen.BottomNavigationEmployee.Profile.ProfileViewModel.ProfileViewModel
 import com.example.elitefacade.ui.screen.Screen
 
 
 @Composable
-fun ProfileView(navController: NavController) {
+fun ProfileView(navController: NavController, profileViewModel: ProfileViewModel = hiltViewModel()) {
+    val state by profileViewModel.profileUserUiState.collectAsState()
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .background(LightGreyBackground)
     ) {
         Column(Modifier.padding(top = 110.dp)) {
-            InfoCard(nameUser = "Евгений Румынников")
+            InfoCard(state.userName,state.jobTitle,state.email)
 
             Button(modifier = Modifier
                 .fillMaxWidth()
@@ -64,7 +69,7 @@ fun ProfileView(navController: NavController) {
 }
 
 @Composable
-fun InfoCard(nameUser: String) {
+fun InfoCard(userName:String,jobTitle:String,email:String,) {
     Card(
         modifier = Modifier
             .padding(16.dp)
@@ -84,13 +89,13 @@ fun InfoCard(nameUser: String) {
                 Column() {
 
                     Text(
-                        text = AppSession.userNameSession,
+                        text = userName,
                         color = MaterialTheme.colorScheme.onPrimary,
                         style = MaterialTheme.typography.titleMedium
                     )
 
                     Text(
-                        text = AppSession.jobTitleSession,
+                        text = jobTitle,
                         color = MaterialTheme.colorScheme.onPrimary,
                         style = MaterialTheme.typography.labelMedium
                     )
@@ -121,7 +126,7 @@ fun InfoCard(nameUser: String) {
                     Text(
                         text = stringResource(id = R.string.profile_view_email),   color = MaterialTheme.colorScheme.onPrimary,
                         style = MaterialTheme.typography.titleMedium)
-                    Text(text = AppSession.emailSession,   color = MaterialTheme.colorScheme.onPrimary,
+                    Text(text = email,   color = MaterialTheme.colorScheme.onPrimary,
                         style = MaterialTheme.typography.labelMedium)
 
                 }

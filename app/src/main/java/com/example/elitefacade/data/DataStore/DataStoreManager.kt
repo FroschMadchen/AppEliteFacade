@@ -1,6 +1,7 @@
 package com.example.elitefacade.data.DataStore
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -28,12 +29,11 @@ class DataStoreManager @Inject constructor(@ApplicationContext private val conte
         private val USER_NAME_KEY =
             stringPreferencesKey("userNameUser")
         private val PASSWORD_KEY =
-            stringPreferencesKey("userNameUser")
+            stringPreferencesKey("passwordUser")
         private val POSITION_KEY =
-            stringPreferencesKey("userNameUser")
+            stringPreferencesKey("positionUser")
         private val DATA_KEY =
             stringPreferencesKey("dataUser")
-
     }
 
     suspend fun saveSessionUser(user: User) {
@@ -46,7 +46,7 @@ class DataStoreManager @Inject constructor(@ApplicationContext private val conte
             prefs[USER_NAME_KEY] = user.userName
             prefs[PASSWORD_KEY] = user.password
             prefs[POSITION_KEY] = user.position
-
+            Log.i("DATASTOREMANAGER", "Успешное сохранение в dataStore ЗАКЛЮЧНИЕ")
         }
     }
     suspend fun deleteSessionUser(){
