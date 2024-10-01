@@ -30,7 +30,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.elitefacade.R
 import com.example.elitefacade.ui.entity.AuthResult
@@ -41,14 +40,14 @@ import com.example.elitefacade.ui.generic.TextFieldView
 import com.example.elitefacade.ui.screen.Login.LoginViewModel.LoginUIEvent
 import com.example.elitefacade.ui.screen.Login.LoginViewModel.LoginViewModel
 import com.example.elitefacade.ui.screen.Registration.PegistrationViewModel.CLIENT
-import com.example.elitefacade.ui.screen.Screen
+import com.example.elitefacade.ui.navgraphs.Screen
 import com.example.elitefacade.ui.utils.isValidLength
 
 
 @Composable
 fun ViewSingInClient(
-    navController: NavController,
-    loginViewModel: LoginViewModel = hiltViewModel()) {
+    onNavigateInBarClientScreen:() -> Unit = {},
+            loginViewModel: LoginViewModel = hiltViewModel()) {
     val context = LocalContext.current
     var notSuccess by remember { mutableStateOf(false) }
     val state by loginViewModel.loginUiState.collectAsState()
@@ -57,7 +56,7 @@ fun ViewSingInClient(
         loginViewModel.authResult.collect { result ->
             when (result) {
                 AuthResult.Authorized -> {
-                    navController.navigate(Screen.NavBarClient.route)
+                    onNavigateInBarClientScreen()
                     context.showToast("успешный вход", Toast.LENGTH_LONG)
                 }
 
@@ -171,3 +170,5 @@ fun PasswordRecoveryView() {
         }
     }
 }
+
+

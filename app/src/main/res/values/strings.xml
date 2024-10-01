@@ -8,7 +8,7 @@
     <string name="farther">Продолжить</string>
     <string name="remember_me">Запомнить меня</string>
     <string name="forgot_password">Забыли данные входа?</string>
-    <string name="id_order">ID вышего заказа</string>
+    <string name="id_order">ID вашего заказа</string>
     <string name="name">Ваше Имя и Фамилия</string>
     <string name="password">Ваш пароль</string>
     <string name="hello_name_client">Здравствуйте, Ростислав!</string>

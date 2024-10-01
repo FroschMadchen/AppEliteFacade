@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.elitefacade.R
@@ -34,7 +35,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun ScreenTabLayout(
-    navController: NavController,
+    onNavigateInBarClientScreen:() -> Unit = {},
+    onNavigationInBarEmployeeScreen:() -> Unit = {}
 ) {
     val tabList =
         listOf(stringResource(id = R.string.client), stringResource(id = R.string.employee))
@@ -91,12 +93,13 @@ fun ScreenTabLayout(
                 state = pagerState
             ) { index ->
                when (index) {
-                    0 -> ViewSingInClient(navController)
-                    1 -> ViewSignInEmployee(navController)
-                    else -> ViewSingInClient(navController)
+                    0 -> ViewSingInClient(onNavigateInBarClientScreen)
+                    1 -> ViewSignInEmployee(onNavigationInBarEmployeeScreen)
+                    else -> ViewSingInClient(onNavigateInBarClientScreen)
                 }
             }
         }
     }
 }
+
 

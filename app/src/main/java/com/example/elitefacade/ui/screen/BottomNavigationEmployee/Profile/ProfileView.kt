@@ -25,16 +25,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.elitefacade.R
 import com.example.elitefacade.presentation.theme.LightGreyBackground
-import com.example.elitefacade.ui.screen.AppSession
 import com.example.elitefacade.ui.screen.BottomNavigationEmployee.Profile.ProfileViewModel.ProfileViewModel
-import com.example.elitefacade.ui.screen.Screen
+import com.example.elitefacade.ui.navgraphs.Screen
 
 
 @Composable

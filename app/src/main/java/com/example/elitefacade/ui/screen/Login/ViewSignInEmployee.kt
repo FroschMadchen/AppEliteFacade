@@ -26,24 +26,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.elitefacade.R
+import com.example.elitefacade.presentation.theme.EliteFacadeTheme
 import com.example.elitefacade.ui.entity.AuthResult
 import com.example.elitefacade.ui.generic.TextFieldView
-import com.example.elitefacade.ui.screen.Screen
+import com.example.elitefacade.ui.navgraphs.Screen
 import com.example.elitefacade.ui.screen.Login.LoginViewModel.LoginUIEvent
 import com.example.elitefacade.ui.screen.Login.LoginViewModel.LoginViewModel
 import com.example.elitefacade.ui.screen.Registration.PegistrationViewModel.EMPLOYEE
+import com.example.elitefacade.ui.screen.Registration.RegistrationScreen
 import com.example.elitefacade.ui.utils.isValidLength
 
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun ViewSignInEmployee(
-    navController: NavController,
+    onNavigateInBarEmployeeScreen:() -> Unit = {},
     loginViewModel: LoginViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -54,7 +56,7 @@ fun ViewSignInEmployee(
         loginViewModel.authResult.collect { result ->
             when (result) {
                 AuthResult.Authorized -> {
-                    navController.navigate(Screen.NavBarEmployee.route)
+                    onNavigateInBarEmployeeScreen()
                     context.showToast("успешный вход", Toast.LENGTH_LONG)
                 }
 
@@ -162,6 +164,8 @@ fun ViewSignInEmployee(
 fun Context.showToast(message: String, length: Int = Toast.LENGTH_LONG) {
     Toast.makeText(this, message, length).show()
 }
+
+
 
 
 

@@ -15,12 +15,12 @@ sealed class BottomNavItemEmployee(
     )
     object ViewingProjects: BottomNavItemEmployee(
         route = "ViewingProjects",
-        iconResId = R.drawable.icon_project,
-        label= "Просмотр"
+        iconResId = R.drawable.icon_analytics,
+        label= "Аналитика"
     )
     object EditProjects: BottomNavItemEmployee(
         route = "EditProjects",
-        iconResId = R.drawable.icon_project_management,
+        iconResId = R.drawable.icon_project,
         label= "Изменить"
     )
     object Chat: BottomNavItemEmployee(

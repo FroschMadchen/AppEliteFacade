@@ -25,14 +25,16 @@ fun EditProjectView() {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(end=10.dp, start = 10.dp)
-                .background(MaterialTheme.colorScheme.primary,shape = RoundedCornerShape(10.dp)),
+                .padding(end = 10.dp, start = 10.dp)
+                .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(10.dp)),
             contentAlignment = Alignment.Center
-        ){
+        ) {
             Icon(
                 painter = painterResource(id = R.drawable.icon_add),
                 contentDescription = "",
-                modifier = Modifier.padding(5.dp).size(25.dp)
+                modifier = Modifier
+                    .padding(5.dp)
+                    .size(25.dp)
             )
         }
 
@@ -44,11 +46,16 @@ fun EditProjectView() {
         ) {
             itemsIndexed(
                 listOf(
-                    TitleProjectState("OOO Висакос", "Шушорова Е. Л.", ""),
-                    TitleProjectState("OAO Бучих", "Мандавошкина Ю.Б.", ""),
-                    TitleProjectState("OAO Бучих", "Мандавошкина Ю.Б.", ""),
-                    TitleProjectState("OAO Бучих", "Мандавошкина Ю.Б.", ""),
-                    TitleProjectState("OAO Бучих", "Мандавошкина Ю.Б.", "")
+                    TitleProjectState("OOO Висакос", "Василенко В. Б.", ""),
+                    TitleProjectState("OAO Китчен Пасс", "Баварских  О. К.", ""),
+                    TitleProjectState("OAO Симпл ", "Кан М.Е.", ""),
+                    TitleProjectState("OAO Рич", "Василенко В. Б.", ""),
+                    TitleProjectState("OAO Миксомания", "Баварских  О. К.", ""),
+                    TitleProjectState("OAO АСТ", "Кан М.Е.", ""),
+                    TitleProjectState("OAO ЛистРос", "Кан М.Е.", ""),
+                    TitleProjectState("ООО Берег", "Кан М.Е.", ""),
+                    TitleProjectState("OAO ФасадЧеб", "Кан М.Е.", ""),
+                    TitleProjectState("OОО РыбБаза", "Кан М.Е.", "")
 
                 )
             ) { index, item ->

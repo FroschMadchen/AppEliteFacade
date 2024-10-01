@@ -19,16 +19,17 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.elitefacade.R
-import com.example.elitefacade.ui.screen.Screen
+import com.example.elitefacade.ui.navgraphs.Screen
 import kotlinx.coroutines.delay
 
 
 @Composable
-fun SplashScreen(navController: NavHostController){
+fun SplashScreen(
+    onNavigateInHomeScreen:() -> Unit = {}){
 
     LaunchedEffect(key1 = true){
         delay(100)//3000
-        navController.navigate(Screen.SingIn.route)
+        onNavigateInHomeScreen()
     }
     Column(
         modifier = Modifier

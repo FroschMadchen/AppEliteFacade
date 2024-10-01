@@ -8,7 +8,7 @@ val Pink80 = Color(0xFFEFB8C8)
 val background = Color(0xBF839ABE)
 val backgroundBtn = Color(0xFFF98727)
 val backgroundBtn323DFD = Color(0xE9072A64)
-val backgroundBtn323 = Color(0xFFF76B6B)
+val backgroundBtn323 = Color(0xE9072A64)
 
 val backgroundButtonCheck = Color(0x7737B409)
 

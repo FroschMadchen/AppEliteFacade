@@ -11,7 +11,6 @@ import com.example.elitefacade.ui.screen.BottomNavigationEmployee.Chat.ChatEmplo
 import com.example.elitefacade.ui.screen.BottomNavigationEmployee.EditProject.EditProjectView
 import com.example.elitefacade.ui.screen.BottomNavigationEmployee.Profile.ProfileView
 import com.example.elitefacade.ui.screen.BottomNavigationEmployee.ViewingProject.ViewingProjectView
-import com.example.elitefacade.ui.screen.Screen
 
 @Composable
 fun BottomNavGraphEmployee(navController: NavHostController, navControllerMain: NavController){

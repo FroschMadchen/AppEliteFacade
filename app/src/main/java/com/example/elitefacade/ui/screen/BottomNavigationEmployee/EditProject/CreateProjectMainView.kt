@@ -1,4 +1,4 @@
-package com.example.elitefacade.ui.screen.Registration
+package com.example.elitefacade.ui.screen.BottomNavigationEmployee.EditProject
 
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -22,7 +22,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,7 +34,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.elitefacade.R
 import com.example.elitefacade.presentation.theme.EliteFacadeTheme
 import com.example.elitefacade.presentation.theme.backgroundBtn
@@ -43,16 +41,13 @@ import com.example.elitefacade.presentation.theme.gradient0
 import com.example.elitefacade.ui.generic.ButtonComponent
 import com.example.elitefacade.ui.generic.TextFieldSingUp
 import com.example.elitefacade.ui.generic.TextFieldSingUpPassword
-import com.example.elitefacade.ui.screen.Registration.PegistrationViewModel.SignUpUIEvent
-import com.example.elitefacade.ui.screen.Registration.PegistrationViewModel.SignUpViewModel
-import com.example.elitefacade.ui.navgraphs.Screen
 import com.example.elitefacade.ui.screen.Registration.PegistrationViewModel.SingUpUIState
 import com.example.elitefacade.ui.utils.isValidLength
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegistrationScreen(
+fun CreateProjectMainView(
     //modifier: Modifier =Modifier,
     onNavigateUp:() -> Unit ={},
     state: SingUpUIState = SingUpUIState(),
@@ -100,15 +95,15 @@ fun RegistrationScreen(
                         .padding(bottom = 16.dp)
                 ) {
                     Text(
-                        text = stringResource(id = R.string.sign_up),
+                        text =  "Создание проекта \n Менеджер Кан Мария",
                         Modifier
                             .padding(top = 10.dp, bottom = 10.dp),
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                     TextFieldSingUp(
-                        title = stringResource(id = R.string.sign_up_user_name),
-                        hint = stringResource(id = R.string.sign_up_user_name_hint),
+                        title = "ФИО Заказчика",
+                        hint = "ФИО Заказчика",
                         icon = R.drawable.icon_project_manager,
                         onTextChanged = {
                             onUserNameChanged(it)
@@ -122,8 +117,8 @@ fun RegistrationScreen(
 
 
                     TextFieldSingUp(
-                        title = stringResource(id = R.string.sing_up_job_header),
-                        hint = stringResource(id = R.string.sing_up_job_hint),
+                        title = "Укажите ООО компании заказчика",
+                        hint = "ООО компании заказчика",
                         icon = R.drawable.icon_project_manager,
                         onTextChanged = {
                             onjobTitleChanged(it)
@@ -131,11 +126,11 @@ fun RegistrationScreen(
                         errorStatus = state.jobTitle.isValidLength(4)
                     )
                     TextFieldSingUp(
-                        title = stringResource(id = R.string.sing_up_email_header),
-                        hint = stringResource(id = R.string.sing_up_email_hint),
+                        title = "Сроки",
+                        hint = "дд.мм.гггг",
                         icon = R.drawable.icon_sing_up_email,
                         onTextChanged = {
-                           onEmailChanged(it)
+                            onEmailChanged(it)
                         },
                         errorStatus = state.email.isNotEmpty()
 
@@ -170,7 +165,7 @@ fun RegistrationScreen(
                     ButtonComponent(
                         value = stringResource(id = R.string.farther),
                         onButtonClicked = {
-                           onRegisterButtonClicked()
+                            onRegisterButtonClicked()
                             onNavigateInMenuEmployee()
                         },
                         onUnavailable = state.let {
@@ -193,8 +188,8 @@ fun TwoExclusiveCheckBoxes(onTextChanged: (String) -> Unit, errorStatus: Boolean
     var isChecked2 by remember { mutableStateOf(false) }
 
 
-    val textEmployee = stringResource(id = R.string.employee)
-    val textClient = stringResource(id = R.string.client)
+    val textEmployee = "Бетон"
+    val textClient = "Металл"
 
     var selectedText by remember { mutableStateOf("") }
     onTextChanged(selectedText)
@@ -280,7 +275,7 @@ fun TwoExclusiveCheckBoxes(onTextChanged: (String) -> Unit, errorStatus: Boolean
             )
         }
         Text(
-            text = "Важно! При регистрации заказчика его пароль это id проекта!",
+            text = "Важно! При регистрации проекта необходимо выбрать его подразделение",
             style = MaterialTheme.typography.titleSmall,
             color = if (!isChecked2) {
                 MaterialTheme.colorScheme.onPrimary
@@ -306,26 +301,6 @@ fun TwoExclusiveCheckBoxes(onTextChanged: (String) -> Unit, errorStatus: Boolean
 @Composable
 fun EditProjectScreenView() {
     EliteFacadeTheme {
-        RegistrationScreen()
+        CreateProjectMainView()
     }
 }
-
-
-
-/*   Text(
-                        text = "Для потверждения регистрации введите emil",
-                        Modifier.padding(4.dp),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-
-                    TextFieldView("Введите email")
-
-                    Text(
-                        text = "Cоздание пароля",
-                        Modifier.padding(4.dp),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                    TextFieldView("Введите пароль")
-                    TextFieldView("Введите пароль повторно")*/
